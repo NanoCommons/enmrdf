@@ -1,3 +1,4 @@
+
 rdfData = rdf.createInMemoryStore()
 rdf.addPrefix(rdfData, "void", "http://rdfs.org/ns/void#")
 rdf.addPrefix(rdfData, "rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
@@ -111,6 +112,52 @@ dataFile.eachLine { line, number ->
       size
     )
   }
+  // zeta
+  zeta = dataRow[6]
+  if (zeta != null && zeta.length() > 0) {
+    if (zeta.contains("(")) {
+      zeta = zeta.split("\\(")[0]
+    }
+    mgRes = nmRes + "_zetamg"
+    rdf.addObjectProperty(rdfData,
+      nmRes,
+      "http://purl.obolibrary.org/obo/BFO_0000056",
+      mgRes
+    )
+    rdf.addObjectProperty(rdfData,
+      mgRes,
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://purl.obolibrary.org/obo/CHEBI_59999"
+    )
+    zetaRes = nmRes + "_zeta"
+    rdf.addObjectProperty(rdfData,
+      mgRes,
+      "http://purl.obolibrary.org/obo/OBI_0000299",
+      zetaRes
+    )
+    rdf.addObjectProperty(rdfData,
+      zetaRes,
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.bioassayontology.org/bao#BAO_0000179"
+    )
+    rdf.addDataProperty(rdfData,
+      zetaRes,
+      "http://www.w3.org/2000/01/rdf-schema#label",
+      "zeta potential"
+    )
+    rdf.addDataProperty(rdfData,
+      zetaRes,
+      "http://semanticscience.org/resource/has-unit",
+      "mV"
+    )
+    rdf.addDataProperty(rdfData,
+      zetaRes,
+      "http://semanticscience.org/resource/has-value",
+      zeta
+    )
+  }
 }
 
-print rdf.asTurtle(rdfData)
+outputFile = "/2nd NanoSafety Forum for Young Scientists/data.ttl"
+if (ui.fileExists(outputFile)) ui.remove(outputFile)
+ui.append(outputFile, rdf.asTurtle(rdfData))
