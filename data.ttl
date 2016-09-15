@@ -10,7 +10,7 @@
 @prefix obo:   <http://purl.obolibrary.org/obo/> .
 @prefix sso:   <http://semanticscience.org/resource/> .
 
-ex:NFYS16-M4_sizemg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M4_size .
 
 ex:NFYS16-M3  a       obo:CHEBI_59999 ;
@@ -64,7 +64,7 @@ ex:NFYS16-M1  a          obo:CHEBI_59999 ;
         obo:BFO_0000056  ex:NFYS16-M1_sizemg ;
         dcterms:type     npo:NPO_1544 .
 
-ex:NFYS16-M2_sizemg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M2_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M2_size .
 
 ex:NFYS16-M3_core_smi
@@ -76,7 +76,7 @@ ex:NFYS16-M5_zeta  a   bao:BAO_0000179 ;
         sso:has-unit   "mV" ;
         sso:has-value  "-5" .
 
-ex:NFYS16-M5_zetamg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M5_zetamg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M5_zeta .
 
 ex:NFYS16-M6  a          obo:CHEBI_59999 ;
@@ -89,10 +89,10 @@ ex:NFYS16-M2_core  a        npo:NPO_1888 ;
         rdfs:label          "[Ag]" ;
         sso:CHEMINF_000200  ex:NFYS16-M2_core_smi .
 
-ex:NFYS16-M1_sizemg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M1_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M1_size .
 
-ex:NFYS16-M6_sizemg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M6_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M6_size .
 
 ex:NFYS16-M6_core_smi
@@ -127,7 +127,7 @@ ex:NFYS16-M1_size  a   bao:BAO_0000179 ;
         sso:has-unit   "nm" ;
         sso:has-value  "20.6" .
 
-ex:NFYS16-M5_sizemg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M5_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M5_size .
 
 ex:NFYS16-M5_size  a   bao:BAO_0000179 ;
@@ -144,5 +144,5 @@ ex:NFYS16-M4  a          obo:CHEBI_59999 ;
 ex:NFYS16  a           void:Dataset ;
         dcterms:title  "2nd NanoSafety Forum for Young Scientists Data" .
 
-ex:NFYS16-M4_zetamg  a   obo:CHEBI_59999 ;
+ex:NFYS16-M4_zetamg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M4_zeta .

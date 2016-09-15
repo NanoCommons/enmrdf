@@ -88,7 +88,7 @@ dataFile.eachLine { line, number ->
     rdf.addObjectProperty(rdfData,
       mgRes,
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-      "http://purl.obolibrary.org/obo/CHEBI_59999"
+      "http://purl.obolibrary.org/obo/BAO_0000040"
     )
     sizeRes = nmRes + "_size"
     rdf.addObjectProperty(rdfData,
@@ -132,7 +132,7 @@ dataFile.eachLine { line, number ->
     rdf.addObjectProperty(rdfData,
       mgRes,
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-      "http://purl.obolibrary.org/obo/CHEBI_59999"
+      "http://purl.obolibrary.org/obo/BAO_0000040"
     )
     zetaRes = nmRes + "_zeta"
     rdf.addObjectProperty(rdfData,
