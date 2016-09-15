@@ -32,6 +32,11 @@ dataFile.eachLine { line, number ->
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
     "http://purl.obolibrary.org/obo/CHEBI_59999"
   )
+  rdf.addObjectProperty(rdfData,
+    nmRes,
+    "http://purl.org/dc/terms/type",
+    "http://purl.bioontology.org/ontology/npo#NPO_1544"
+  )
   rdf.addDataProperty(rdfData,
     nmRes,
     "http://www.w3.org/2000/01/rdf-schema#label",

@@ -15,7 +15,8 @@ ex:NFYS16-M4_sizemg  a   obo:CHEBI_59999 ;
 
 ex:NFYS16-M3  a       obo:CHEBI_59999 ;
         rdfs:label    "Ag-NP" ;
-        npo:has_part  ex:NFYS16-M3_core .
+        npo:has_part  ex:NFYS16-M3_core ;
+        dcterms:type  npo:NPO_1544 .
 
 ex:NFYS16-M4_core  a        npo:NPO_1888 ;
         rdfs:label          "[Mn]" ;
@@ -31,7 +32,8 @@ ex:NFYS16-M1_core  a  npo:NPO_1888 ;
 ex:NFYS16-M2  a          obo:CHEBI_59999 ;
         rdfs:label       "Silver" ;
         npo:has_part     ex:NFYS16-M2_core ;
-        obo:BFO_0000056  ex:NFYS16-M2_sizemg .
+        obo:BFO_0000056  ex:NFYS16-M2_sizemg ;
+        dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_size  a   bao:BAO_0000179 ;
         rdfs:label     "primary particle size" ;
@@ -59,7 +61,8 @@ ex:NFYS16-M4_zeta  a   bao:BAO_0000179 ;
 ex:NFYS16-M1  a          obo:CHEBI_59999 ;
         rdfs:label       "UV-Titan L181" ;
         npo:has_part     ex:NFYS16-M1_core ;
-        obo:BFO_0000056  ex:NFYS16-M1_sizemg .
+        obo:BFO_0000056  ex:NFYS16-M1_sizemg ;
+        dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_sizemg  a   obo:CHEBI_59999 ;
         obo:OBI_0000299  ex:NFYS16-M2_size .
@@ -79,7 +82,8 @@ ex:NFYS16-M5_zetamg  a   obo:CHEBI_59999 ;
 ex:NFYS16-M6  a          obo:CHEBI_59999 ;
         rdfs:label       "copper" ;
         npo:has_part     ex:NFYS16-M6_core ;
-        obo:BFO_0000056  ex:NFYS16-M6_sizemg .
+        obo:BFO_0000056  ex:NFYS16-M6_sizemg ;
+        dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_core  a        npo:NPO_1888 ;
         rdfs:label          "[Ag]" ;
@@ -106,7 +110,8 @@ ex:NFYS16-M3_core  a        npo:NPO_1888 ;
 ex:NFYS16-M5  a          obo:CHEBI_59999 ;
         rdfs:label       "Alumininum" ;
         npo:has_part     ex:NFYS16-M5_core ;
-        obo:BFO_0000056  ex:NFYS16-M5_zetamg , ex:NFYS16-M5_sizemg .
+        obo:BFO_0000056  ex:NFYS16-M5_zetamg , ex:NFYS16-M5_sizemg ;
+        dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M4_core_smi
         a               sso:CHEMINF_000018 ;
@@ -133,7 +138,8 @@ ex:NFYS16-M5_size  a   bao:BAO_0000179 ;
 ex:NFYS16-M4  a          obo:CHEBI_59999 ;
         rdfs:label       "Maganese" ;
         npo:has_part     ex:NFYS16-M4_core ;
-        obo:BFO_0000056  ex:NFYS16-M4_zetamg , ex:NFYS16-M4_sizemg .
+        obo:BFO_0000056  ex:NFYS16-M4_zetamg , ex:NFYS16-M4_sizemg ;
+        dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16  a           void:Dataset ;
         dcterms:title  "2nd NanoSafety Forum for Young Scientists Data" .
