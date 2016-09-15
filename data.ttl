@@ -13,10 +13,11 @@
 ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M4_size .
 
-ex:NFYS16-M3  a       obo:CHEBI_59999 ;
-        rdfs:label    "Ag-NP" ;
-        npo:has_part  ex:NFYS16-M3_core ;
-        dcterms:type  npo:NPO_1544 .
+ex:NFYS16-M3  a         obo:CHEBI_59999 ;
+        rdfs:label      "Ag-NP" ;
+        npo:has_part    ex:NFYS16-M3_core ;
+        dcterms:source  ex:NFYS16 ;
+        dcterms:type    npo:NPO_1544 .
 
 ex:NFYS16-M4_core  a        npo:NPO_1888 ;
         rdfs:label          "[Mn]" ;
@@ -33,6 +34,7 @@ ex:NFYS16-M2  a          obo:CHEBI_59999 ;
         rdfs:label       "Silver" ;
         npo:has_part     ex:NFYS16-M2_core ;
         obo:BFO_0000056  ex:NFYS16-M2_sizemg ;
+        dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_size  a   bao:BAO_0000179 ;
@@ -62,6 +64,7 @@ ex:NFYS16-M1  a          obo:CHEBI_59999 ;
         rdfs:label       "UV-Titan L181" ;
         npo:has_part     ex:NFYS16-M1_core ;
         obo:BFO_0000056  ex:NFYS16-M1_sizemg ;
+        dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_sizemg  a   obo:BAO_0000040 ;
@@ -83,6 +86,7 @@ ex:NFYS16-M6  a          obo:CHEBI_59999 ;
         rdfs:label       "copper" ;
         npo:has_part     ex:NFYS16-M6_core ;
         obo:BFO_0000056  ex:NFYS16-M6_sizemg ;
+        dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M2_core  a        npo:NPO_1888 ;
@@ -111,6 +115,7 @@ ex:NFYS16-M5  a          obo:CHEBI_59999 ;
         rdfs:label       "Alumininum" ;
         npo:has_part     ex:NFYS16-M5_core ;
         obo:BFO_0000056  ex:NFYS16-M5_zetamg , ex:NFYS16-M5_sizemg ;
+        dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16-M4_core_smi
@@ -139,6 +144,7 @@ ex:NFYS16-M4  a          obo:CHEBI_59999 ;
         rdfs:label       "Maganese" ;
         npo:has_part     ex:NFYS16-M4_core ;
         obo:BFO_0000056  ex:NFYS16-M4_zetamg , ex:NFYS16-M4_sizemg ;
+        dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
 ex:NFYS16  a           void:Dataset ;

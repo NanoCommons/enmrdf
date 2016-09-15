@@ -34,6 +34,11 @@ dataFile.eachLine { line, number ->
   )
   rdf.addObjectProperty(rdfData,
     nmRes,
+    "http://purl.org/dc/terms/source",
+    datasetStr
+  )
+  rdf.addObjectProperty(rdfData,
+    nmRes,
     "http://purl.org/dc/terms/type",
     "http://purl.bioontology.org/ontology/npo#NPO_1544"
   )
