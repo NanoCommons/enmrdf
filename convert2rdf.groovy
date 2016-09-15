@@ -9,6 +9,7 @@ rdf.addPrefix(rdfData, "npo", "http://purl.bioontology.org/ontology/npo#")
 rdf.addPrefix(rdfData, "sso", "http://semanticscience.org/resource/")
 rdf.addPrefix(rdfData, "ex", "http://example.org/")
 rdf.addPrefix(rdfData, "bao", "http://www.bioassayontology.org/bao#")
+rdf.addPrefix(rdfData, "cito", "http://purl.org/net/cito/")
 
 datasetStr = "http://example.org/NFYS16" 
 rdf.addObjectProperty(rdfData,
@@ -121,6 +122,11 @@ dataFile.eachLine { line, number ->
       "http://semanticscience.org/resource/has-value",
       size
     )
+    rdf.addObjectProperty(rdfData,
+      sizeRes,
+      "http://purl.org/net/cito/usesDataFrom",
+      "http://doi.org/" + dataRow[2]
+    )
   }
   // zeta
   zeta = dataRow[6]
@@ -164,6 +170,11 @@ dataFile.eachLine { line, number ->
       zetaRes,
       "http://semanticscience.org/resource/has-value",
       zeta
+    )
+    rdf.addObjectProperty(rdfData,
+      zetaRes,
+      "http://purl.org/net/cito/usesDataFrom",
+      "http://doi.org/" + dataRow[2]
     )
   }
 }

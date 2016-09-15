@@ -9,6 +9,7 @@
 @prefix npo:   <http://purl.bioontology.org/ontology/npo#> .
 @prefix obo:   <http://purl.obolibrary.org/obo/> .
 @prefix sso:   <http://semanticscience.org/resource/> .
+@prefix cito:  <http://purl.org/net/cito/> .
 
 ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M4_size .
@@ -37,28 +38,31 @@ ex:NFYS16-M2  a          obo:CHEBI_59999 ;
         dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1544 .
 
-ex:NFYS16-M2_size  a   bao:BAO_0000179 ;
-        rdfs:label     "primary particle size" ;
-        sso:has-unit   "nm" ;
-        sso:has-value  "50" .
+ex:NFYS16-M2_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.reprotox.2015.05.015> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "50" .
 
 ex:NFYS16-M5_core  a        npo:NPO_1888 ;
         rdfs:label          "[Al]" ;
         sso:CHEMINF_000200  ex:NFYS16-M5_core_smi .
 
-ex:NFYS16-M6_size  a   bao:BAO_0000179 ;
-        rdfs:label     "primary particle size" ;
-        sso:has-unit   "nm" ;
-        sso:has-value  "100" .
+ex:NFYS16-M6_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "100" .
 
 ex:NFYS16-M5_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Al]" .
 
-ex:NFYS16-M4_zeta  a   bao:BAO_0000179 ;
-        rdfs:label     "zeta potential" ;
-        sso:has-unit   "mV" ;
-        sso:has-value  "-24" .
+ex:NFYS16-M4_zeta  a       bao:BAO_0000179 ;
+        rdfs:label         "zeta potential" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "mV" ;
+        sso:has-value      "-24" .
 
 ex:NFYS16-M1  a          obo:CHEBI_59999 ;
         rdfs:label       "UV-Titan L181" ;
@@ -74,10 +78,11 @@ ex:NFYS16-M3_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Ag]" .
 
-ex:NFYS16-M5_zeta  a   bao:BAO_0000179 ;
-        rdfs:label     "zeta potential" ;
-        sso:has-unit   "mV" ;
-        sso:has-value  "-5" .
+ex:NFYS16-M5_zeta  a       bao:BAO_0000179 ;
+        rdfs:label         "zeta potential" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "mV" ;
+        sso:has-value      "-5" .
 
 ex:NFYS16-M5_zetamg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M5_zeta .
@@ -122,23 +127,26 @@ ex:NFYS16-M4_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Mn]" .
 
-ex:NFYS16-M4_size  a   bao:BAO_0000179 ;
-        rdfs:label     "primary particle size" ;
-        sso:has-unit   "nm" ;
-        sso:has-value  "20" .
+ex:NFYS16-M4_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "20" .
 
-ex:NFYS16-M1_size  a   bao:BAO_0000179 ;
-        rdfs:label     "primary particle size" ;
-        sso:has-unit   "nm" ;
-        sso:has-value  "20.6" .
+ex:NFYS16-M1_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.reprotox.2015.05.015> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "20.6" .
 
 ex:NFYS16-M5_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M5_size .
 
-ex:NFYS16-M5_size  a   bao:BAO_0000179 ;
-        rdfs:label     "primary particle size" ;
-        sso:has-unit   "nm" ;
-        sso:has-value  "70" .
+ex:NFYS16-M5_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "70" .
 
 ex:NFYS16-M4  a          obo:CHEBI_59999 ;
         rdfs:label       "Maganese" ;
