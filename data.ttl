@@ -1,62 +1,81 @@
-@prefix bao:   <http://www.bioassayontology.org/bao#> .
 @prefix void:  <http://rdfs.org/ns/void#> .
-@prefix ex:    <http://example.org/> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix enm:   <http://purl.enanomapper.org/onto/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix npo:   <http://purl.bioontology.org/ontology/npo#> .
-@prefix obo:   <http://purl.obolibrary.org/obo/> .
 @prefix sso:   <http://semanticscience.org/resource/> .
 @prefix cito:  <http://purl.org/net/cito/> .
+@prefix bao:   <http://www.bioassayontology.org/bao#> .
+@prefix ex:    <http://example.org/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix obo:   <http://purl.obolibrary.org/obo/> .
 
-ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M4_size .
+ex:NFYS16-M9_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Cu]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M9_core_smi .
 
-ex:NFYS16-M3  a         obo:CHEBI_59999 ;
-        rdfs:label      "Ag-NP" ;
-        npo:has_part    ex:NFYS16-M3_core ;
-        dcterms:source  ex:NFYS16 ;
-        dcterms:type    npo:NPO_1544 .
+ex:NFYS16-M4_zetamg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M4_zeta .
 
-ex:NFYS16-M4_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Mn]" ;
-        sso:CHEMINF_000200  ex:NFYS16-M4_core_smi .
+ex:NFYS16-M5_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "c1ccccc1C-C" .
 
 ex:NFYS16-M2_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Ag]" .
 
-ex:NFYS16-M1_core  a  npo:NPO_1888 ;
-        rdfs:label  "TiO2" .
+ex:NFYS16-M5_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M5_size .
 
-ex:NFYS16-M2  a          obo:CHEBI_59999 ;
-        rdfs:label       "Silver" ;
-        npo:has_part     ex:NFYS16-M2_core ;
-        obo:BFO_0000056  ex:NFYS16-M2_sizemg ;
+ex:NFYS16-M4  a          obo:CHEBI_59999 ;
+        rdfs:label       "Manganese" ;
+        npo:has_part     ex:NFYS16-M4_core ;
+        obo:BFO_0000056  ex:NFYS16-M4_zetamg , ex:NFYS16-M4_sizemg ;
         dcterms:source   ex:NFYS16 ;
-        dcterms:type     npo:NPO_1544 .
+        dcterms:type     npo:NPO_1384 .
 
-ex:NFYS16-M2_size  a       bao:BAO_0000179 ;
-        rdfs:label         "primary particle size" ;
-        cito:usesDataFrom  <http://doi.org/10.1016/j.reprotox.2015.05.015> ;
-        sso:has-unit       "nm" ;
-        sso:has-value      "50" .
+ex:NFYS16-M8_zetamg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M8_zeta .
 
-ex:NFYS16-M5_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Al]" ;
-        sso:CHEMINF_000200  ex:NFYS16-M5_core_smi .
+ex:NFYS16-M1_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M1_size .
 
-ex:NFYS16-M6_size  a       bao:BAO_0000179 ;
-        rdfs:label         "primary particle size" ;
-        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
-        sso:has-unit       "nm" ;
-        sso:has-value      "100" .
+ex:NFYS16-M9_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M9_size .
 
-ex:NFYS16-M5_core_smi
+ex:NFYS16  a           void:Dataset ;
+        dcterms:title  "2nd NanoSafety Forum for Young Scientists Data" .
+
+ex:NFYS16-M9  a          obo:CHEBI_59999 ;
+        rdfs:label       "copper" ;
+        npo:has_part     ex:NFYS16-M9_core ;
+        obo:BFO_0000056  ex:NFYS16-M9_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     enm:ENM_9000016 .
+
+ex:NFYS16-M8_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Al]" .
+
+ex:NFYS16-M1_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "TiO2" .
+
+ex:NFYS16-M6_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M6_size .
+
+ex:NFYS16-M2_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Ag]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M2_core_smi .
+
+ex:NFYS16-M3  a         obo:CHEBI_59999 ;
+        rdfs:label      "Ag-NP" ;
+        npo:has_part    ex:NFYS16-M3_core ;
+        dcterms:source  ex:NFYS16 ;
+        dcterms:type    npo:NPO_1892 .
 
 ex:NFYS16-M4_zeta  a       bao:BAO_0000179 ;
         rdfs:label         "zeta potential" ;
@@ -64,74 +83,18 @@ ex:NFYS16-M4_zeta  a       bao:BAO_0000179 ;
         sso:has-unit       "mV" ;
         sso:has-value      "-24" .
 
-ex:NFYS16-M1  a          obo:CHEBI_59999 ;
-        rdfs:label       "UV-Titan L181" ;
-        npo:has_part     ex:NFYS16-M1_core ;
-        obo:BFO_0000056  ex:NFYS16-M1_sizemg ;
-        dcterms:source   ex:NFYS16 ;
-        dcterms:type     npo:NPO_1544 .
+ex:NFYS16-M1_core  a        npo:NPO_1888 ;
+        rdfs:label          "TiO2" ;
+        sso:CHEMINF_000200  ex:NFYS16-M1_core_smi .
+
+ex:NFYS16-M2_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.reprotox.2015.05.015> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "50" .
 
 ex:NFYS16-M2_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M2_size .
-
-ex:NFYS16-M3_core_smi
-        a               sso:CHEMINF_000018 ;
-        sso:SIO_000300  "[Ag]" .
-
-ex:NFYS16-M5_zeta  a       bao:BAO_0000179 ;
-        rdfs:label         "zeta potential" ;
-        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
-        sso:has-unit       "mV" ;
-        sso:has-value      "-5" .
-
-ex:NFYS16-M5_zetamg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M5_zeta .
-
-ex:NFYS16-M6  a          obo:CHEBI_59999 ;
-        rdfs:label       "copper" ;
-        npo:has_part     ex:NFYS16-M6_core ;
-        obo:BFO_0000056  ex:NFYS16-M6_sizemg ;
-        dcterms:source   ex:NFYS16 ;
-        dcterms:type     npo:NPO_1544 .
-
-ex:NFYS16-M2_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
-        sso:CHEMINF_000200  ex:NFYS16-M2_core_smi .
-
-ex:NFYS16-M1_sizemg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M1_size .
-
-ex:NFYS16-M6_sizemg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M6_size .
-
-ex:NFYS16-M6_core_smi
-        a               sso:CHEMINF_000018 ;
-        sso:SIO_000300  "[Cu]" .
-
-ex:NFYS16-M6_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Cu]" ;
-        sso:CHEMINF_000200  ex:NFYS16-M6_core_smi .
-
-ex:NFYS16-M3_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
-        sso:CHEMINF_000200  ex:NFYS16-M3_core_smi .
-
-ex:NFYS16-M5  a          obo:CHEBI_59999 ;
-        rdfs:label       "Alumininum" ;
-        npo:has_part     ex:NFYS16-M5_core ;
-        obo:BFO_0000056  ex:NFYS16-M5_zetamg , ex:NFYS16-M5_sizemg ;
-        dcterms:source   ex:NFYS16 ;
-        dcterms:type     npo:NPO_1544 .
-
-ex:NFYS16-M4_core_smi
-        a               sso:CHEMINF_000018 ;
-        sso:SIO_000300  "[Mn]" .
-
-ex:NFYS16-M4_size  a       bao:BAO_0000179 ;
-        rdfs:label         "primary particle size" ;
-        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
-        sso:has-unit       "nm" ;
-        sso:has-value      "20" .
 
 ex:NFYS16-M1_size  a       bao:BAO_0000179 ;
         rdfs:label         "primary particle size" ;
@@ -139,24 +102,148 @@ ex:NFYS16-M1_size  a       bao:BAO_0000179 ;
         sso:has-unit       "nm" ;
         sso:has-value      "20.6" .
 
-ex:NFYS16-M5_sizemg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M5_size .
+ex:NFYS16-M8  a          obo:CHEBI_59999 ;
+        rdfs:label       "Alumininum" ;
+        npo:has_part     ex:NFYS16-M8_core ;
+        obo:BFO_0000056  ex:NFYS16-M8_zetamg , ex:NFYS16-M8_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     enm:ENM_9000020 .
+
+ex:NFYS16-M4_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Mn]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M4_core_smi .
+
+ex:NFYS16-M5_zetamg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M5_zeta .
+
+ex:NFYS16-M2  a          obo:CHEBI_59999 ;
+        rdfs:label       "Silver" ;
+        npo:has_part     ex:NFYS16-M2_core ;
+        obo:BFO_0000056  ex:NFYS16-M2_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     npo:NPO_1892 .
+
+ex:NFYS16-M3_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Ag]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M3_core_smi .
+
+ex:NFYS16-M7_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[Ag]" .
+
+ex:NFYS16-M4_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[Mn]" .
+
+ex:NFYS16-M5_zeta  a       bao:BAO_0000179 ;
+        rdfs:label         "zeta potential" ;
+        cito:usesDataFrom  <http://doi.org/10.1039/C5NR02618K> ;
+        sso:has-unit       "mV" ;
+        sso:has-value      "-30" .
+
+ex:NFYS16-M4_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "20" .
+
+ex:NFYS16-M7  a          obo:CHEBI_59999 ;
+        rdfs:label       "Silver" ;
+        npo:has_part     ex:NFYS16-M7_core ;
+        obo:BFO_0000056  ex:NFYS16-M7_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     npo:NPO_1892 .
+
+ex:NFYS16-M6_core  a        npo:NPO_1888 ;
+        rdfs:label          "c1ccccc1C-C" ;
+        sso:CHEMINF_000200  ex:NFYS16-M6_core_smi .
+
+ex:NFYS16-M8_zeta  a       bao:BAO_0000179 ;
+        rdfs:label         "zeta potential" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "mV" ;
+        sso:has-value      "-5" .
+
+ex:NFYS16-M7_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1007/s11356-015-4887-7> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "25" .
+
+ex:NFYS16-M1  a          obo:CHEBI_59999 ;
+        rdfs:label       "UV-Titan L181" ;
+        npo:has_part     ex:NFYS16-M1_core ;
+        obo:BFO_0000056  ex:NFYS16-M1_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     obo:CHEBI_51050 .
+
+ex:NFYS16-M5_core  a        npo:NPO_1888 ;
+        rdfs:label          "c1ccccc1C-C" ;
+        sso:CHEMINF_000200  ex:NFYS16-M5_core_smi .
+
+ex:NFYS16-M6_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.jprot.2015.09.005> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "100" .
 
 ex:NFYS16-M5_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1039/C5NR02618K> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "20" .
+
+ex:NFYS16-M7_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M7_size .
+
+ex:NFYS16-M9_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[Cu]" .
+
+ex:NFYS16-M6_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "c1ccccc1C-C" .
+
+ex:NFYS16-M3_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[Ag]" .
+
+ex:NFYS16-M8_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Al]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M8_core_smi .
+
+ex:NFYS16-M6  a          obo:CHEBI_59999 ;
+        rdfs:label       "Polystyrene amine modified" ;
+        npo:has_part     ex:NFYS16-M6_core ;
+        obo:BFO_0000056  ex:NFYS16-M6_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     enm:ENM_9000008 .
+
+ex:NFYS16-M9_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
+        sso:has-unit       "nm" ;
+        sso:has-value      "100" .
+
+ex:NFYS16-M7_core  a        npo:NPO_1888 ;
+        rdfs:label          "[Ag]" ;
+        sso:CHEMINF_000200  ex:NFYS16-M7_core_smi .
+
+ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M4_size .
+
+ex:NFYS16-M8_size  a       bao:BAO_0000179 ;
         rdfs:label         "primary particle size" ;
         cito:usesDataFrom  <http://doi.org/10.1016/j.electacta.2016.07.017> ;
         sso:has-unit       "nm" ;
         sso:has-value      "70" .
 
-ex:NFYS16-M4  a          obo:CHEBI_59999 ;
-        rdfs:label       "Maganese" ;
-        npo:has_part     ex:NFYS16-M4_core ;
-        obo:BFO_0000056  ex:NFYS16-M4_zetamg , ex:NFYS16-M4_sizemg ;
+ex:NFYS16-M5  a          obo:CHEBI_59999 ;
+        rdfs:label       "Polystyrene " ;
+        npo:has_part     ex:NFYS16-M5_core ;
+        obo:BFO_0000056  ex:NFYS16-M5_zetamg , ex:NFYS16-M5_sizemg ;
         dcterms:source   ex:NFYS16 ;
-        dcterms:type     npo:NPO_1544 .
+        dcterms:type     enm:ENM_9000008 .
 
-ex:NFYS16  a           void:Dataset ;
-        dcterms:title  "2nd NanoSafety Forum for Young Scientists Data" .
-
-ex:NFYS16-M4_zetamg  a   obo:BAO_0000040 ;
-        obo:OBI_0000299  ex:NFYS16-M4_zeta .
+ex:NFYS16-M8_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M8_size .

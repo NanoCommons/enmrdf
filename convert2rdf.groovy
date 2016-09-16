@@ -10,6 +10,7 @@ rdf.addPrefix(rdfData, "sso", "http://semanticscience.org/resource/")
 rdf.addPrefix(rdfData, "ex", "http://example.org/")
 rdf.addPrefix(rdfData, "bao", "http://www.bioassayontology.org/bao#")
 rdf.addPrefix(rdfData, "cito", "http://purl.org/net/cito/")
+rdf.addPrefix(rdfData, "enm", "http://purl.enanomapper.org/onto/")
 
 datasetStr = "http://example.org/NFYS16" 
 rdf.addObjectProperty(rdfData,
@@ -38,11 +39,26 @@ dataFile.eachLine { line, number ->
     "http://purl.org/dc/terms/source",
     datasetStr
   )
-  rdf.addObjectProperty(rdfData,
-    nmRes,
-    "http://purl.org/dc/terms/type",
-    "http://purl.bioontology.org/ontology/npo#NPO_1544"
-  )
+  nmType = dataRow[5]
+  if (nmType.startsWith("ENM_")) {
+    rdf.addObjectProperty(rdfData,
+      nmRes,
+      "http://purl.org/dc/terms/type",
+      "http://purl.enanomapper.org/onto/" + nmType
+    )
+  } else if (nmType.startsWith("NPO_")) {
+    rdf.addObjectProperty(rdfData,
+      nmRes,
+      "http://purl.org/dc/terms/type",
+      "http://purl.bioontology.org/ontology/npo#" + nmType
+    )
+  } else if (nmType.startsWith("CHEBI_")) {
+    rdf.addObjectProperty(rdfData,
+      nmRes,
+      "http://purl.org/dc/terms/type",
+      "http://purl.obolibrary.org/obo/" + nmType
+    )
+  } 
   rdf.addDataProperty(rdfData,
     nmRes,
     "http://www.w3.org/2000/01/rdf-schema#label",
@@ -64,7 +80,7 @@ dataFile.eachLine { line, number ->
     "http://purl.bioontology.org/ontology/npo#NPO_1888"
   )
   possSMILES = dataRow[4]
-  if (possSMILES.contains("[") || possSMILES.contains("=")) {
+  if (true) { // manually curated, otherwise: possSMILES.contains("[") || possSMILES.contains("=")) {
     smiRes = nmRes + "_core_smi"
     rdf.addObjectProperty(rdfData,
       nmRes + "_core",
@@ -129,7 +145,7 @@ dataFile.eachLine { line, number ->
     )
   }
   // zeta
-  zeta = dataRow[6]
+  zeta = dataRow[7]
   if (zeta != null && zeta.length() > 0) {
     if (zeta.contains("(")) {
       zeta = zeta.split("\\(")[0]
