@@ -1,3 +1,15 @@
+outputFile = "/2nd NanoSafety Forum for Young Scientists/data.ttl"
+doiOutputFile = "/2nd NanoSafety Forum for Young Scientists/doi.ttl"
+
+if (ui.fileExists(outputFile)) ui.remove(outputFile)
+if (ui.fileExists(doiOutputFile)) ui.remove(doiOutputFile)
+
+doiData = rdf.createInMemoryStore()
+rdf.addPrefix(doiData, "foaf", "http://xmlns.com/foaf/0.1/")
+rdf.addPrefix(doiData, "author", "http://id.crossref.org/contributor/")
+rdf.addPrefix(doiData, "prism", "http://prismstandard.org/namespaces/basic/2.1/")
+rdf.addPrefix(doiData, "bibo", "http://purl.org/ontology/bibo/")
+rdf.addPrefix(doiData, "dcterms", "http://purl.org/dc/terms/")
 
 rdfData = rdf.createInMemoryStore()
 rdf.addPrefix(rdfData, "void", "http://rdfs.org/ns/void#")
@@ -192,9 +204,10 @@ dataFile.eachLine { line, number ->
       "http://purl.org/net/cito/usesDataFrom",
       "http://doi.org/" + dataRow[2]
     )
+    doiContent = bioclipse.download("http://doi.org/10.1186/1743-8977-11-4", "text/turtle")
+    rdf.importFromString(doiData, doiContent, "TURTLE")
   }
 }
 
-outputFile = "/2nd NanoSafety Forum for Young Scientists/data.ttl"
-if (ui.fileExists(outputFile)) ui.remove(outputFile)
 ui.append(outputFile, rdf.asTurtle(rdfData))
+ui.append(doiOutputFile, rdf.asTurtle(doiData))

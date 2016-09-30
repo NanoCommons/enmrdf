@@ -1,0 +1,91 @@
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix author: <http://id.crossref.org/contributor/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix bibo:  <http://purl.org/ontology/bibo/> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.1/> .
+
+<http://id.crossref.org/issn/1743-8977>
+        a              bibo:Journal ;
+        prism:issn     "1743-8977" ;
+        dcterms:title  "Particle and Fibre Toxicology" ;
+        bibo:issn      "1743-8977" ;
+        owl:sameAs     "urn:issn:1743-8977" .
+
+author:satu-suhonen-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Suhonen" ;
+        foaf:givenName   "Satu" ;
+        foaf:name        "Satu Suhonen" .
+
+author:minnamari-vippola-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Vippola" ;
+        foaf:givenName   "Minnamari" ;
+        foaf:name        "Minnamari Vippola" .
+
+author:hannu-norppa-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Norppa" ;
+        foaf:givenName   "Hannu" ;
+        foaf:name        "Hannu Norppa" .
+
+author:jensen-alstrup-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Alstrup" ;
+        foaf:givenName   "Jensen" ;
+        foaf:name        "Jensen Alstrup" .
+
+author:julia-catalan-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Catalán" ;
+        foaf:givenName   "Julia" ;
+        foaf:name        "Julia Catalán" .
+
+<http://dx.doi.org/10.1186/1743-8977-11-4>
+        prism:doi           "10.1186/1743-8977-11-4" ;
+        prism:startingPage  "4" ;
+        prism:volume        "11" ;
+        dcterms:creator     author:joost-van-delft-2pp2tkkt9c4it , author:satu-suhonen-2pp2tkkt9c4it , author:jacob-briede-2pp2tkkt9c4it , author:jensen-alstrup-2pp2tkkt9c4it , author:yahia-kembouche-2pp2tkkt9c4it , author:minnamari-vippola-2pp2tkkt9c4it , author:julia-catalan-2pp2tkkt9c4it , author:penny-nymark-2pp2tkkt9c4it , author:hannu-norppa-2pp2tkkt9c4it , author:jos-kleinjans-2pp2tkkt9c4it ;
+        dcterms:date        "2014"^^xsd:gYear ;
+        dcterms:identifier  "10.1186/1743-8977-11-4" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/1743-8977> ;
+        dcterms:publisher   "Springer Nature" ;
+        dcterms:title       "Free radical scavenging and formation by multi-walled carbon nanotubes in cell free conditions and in human bronchial epithelial cells" ;
+        bibo:doi            "10.1186/1743-8977-11-4" ;
+        bibo:pageStart      "4" ;
+        bibo:volume         "11" ;
+        owl:sameAs          <doi:10.1186/1743-8977-11-4> , <info:doi/10.1186/1743-8977-11-4> .
+
+author:joost-van-delft-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "van Delft" ;
+        foaf:givenName   "Joost" ;
+        foaf:name        "Joost van Delft" .
+
+author:penny-nymark-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Nymark" ;
+        foaf:givenName   "Penny" ;
+        foaf:name        "Penny Nymark" .
+
+author:yahia-kembouche-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Kembouche" ;
+        foaf:givenName   "Yahia" ;
+        foaf:name        "Yahia Kembouche" .
+
+author:jacob-briede-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Briedé" ;
+        foaf:givenName   "Jacob" ;
+        foaf:name        "Jacob Briedé" .
+
+author:jos-kleinjans-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Kleinjans" ;
+        foaf:givenName   "Jos" ;
+        foaf:name        "Jos Kleinjans" .
