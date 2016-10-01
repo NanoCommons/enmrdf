@@ -140,11 +140,12 @@ ex:NFYS16-M2_core  a        npo:NPO_1888 ;
 ex:NFYS16-M13_sizemg  a  obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M13_size .
 
-ex:NFYS16-M3  a         obo:CHEBI_59999 ;
-        rdfs:label      "Ag-NP" ;
-        npo:has_part    ex:NFYS16-M3_core ;
-        dcterms:source  ex:NFYS16 ;
-        dcterms:type    npo:NPO_1892 .
+ex:NFYS16-M3  a          obo:CHEBI_59999 ;
+        rdfs:label       "Ag-NP" ;
+        npo:has_part     ex:NFYS16-M3_core ;
+        obo:BFO_0000056  ex:NFYS16-M3_sizemg ;
+        dcterms:source   ex:NFYS16 ;
+        dcterms:type     npo:NPO_1892 .
 
 ex:NFYS16-M13_size  a      bao:BAO_0000179 ;
         rdfs:label         "primary particle size" ;
@@ -291,6 +292,12 @@ ex:NFYS16-M15  a         obo:CHEBI_59999 ;
         dcterms:source   ex:NFYS16 ;
         dcterms:type     npo:NPO_1892 .
 
+ex:NFYS16-M3_size  a       bao:BAO_0000179 ;
+        rdfs:label         "primary particle size" ;
+        obo:STATO_0000035  "3-8" ;
+        cito:usesDataFrom  <http://doi.org/10.1007/s10646-014-1302-y> ;
+        sso:has-unit       "nm" .
+
 ex:NFYS16-M11_sizemg  a  obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M11_size .
 
@@ -305,13 +312,16 @@ ex:NFYS16-M16_core_smi
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[Al]" .
 
+ex:NFYS16-M13_core_smi
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[C]" .
+
 ex:NFYS16-M6_core  a        npo:NPO_1888 ;
         rdfs:label          "c1ccccc1C-C" ;
         sso:CHEMINF_000200  ex:NFYS16-M6_core_smi .
 
-ex:NFYS16-M13_core_smi
-        a               sso:CHEMINF_000018 ;
-        sso:SIO_000300  "[C]" .
+ex:NFYS16-M3_sizemg  a   obo:BAO_0000040 ;
+        obo:OBI_0000299  ex:NFYS16-M3_size .
 
 ex:NFYS16-M10_core_smi
         a               sso:CHEMINF_000018 ;

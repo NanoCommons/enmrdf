@@ -112,7 +112,7 @@ dataFile.eachLine { line, number ->
   }
   // size
   size = dataRow[3]
-  if (size != null && size.length() > 0 && !size.contains("-")) {
+  if (size != null && size.length() > 0) {
     mgRes = nmRes + "_sizemg"
     rdf.addObjectProperty(rdfData,
       nmRes,
@@ -145,11 +145,19 @@ dataFile.eachLine { line, number ->
       "http://semanticscience.org/resource/has-unit",
       "nm"
     )
-    rdf.addDataProperty(rdfData,
-      sizeRes,
-      "http://semanticscience.org/resource/has-value",
-      size
-    )
+    if (!size.contains("-")) {
+      rdf.addDataProperty(rdfData,
+        sizeRes,
+        "http://semanticscience.org/resource/has-value",
+        size
+      )
+    } else {
+      rdf.addDataProperty(rdfData,
+        sizeRes,
+        "http://purl.obolibrary.org/obo/STATO_0000035",
+        size
+      )
+    }
     rdf.addObjectProperty(rdfData,
       sizeRes,
       "http://purl.org/net/cito/usesDataFrom",
