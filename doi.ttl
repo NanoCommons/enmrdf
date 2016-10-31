@@ -8,24 +8,192 @@
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix prism: <http://prismstandard.org/namespaces/basic/2.1/> .
 
-<http://id.crossref.org/issn/1743-8977>
+<http://id.crossref.org/issn/0300-483X>
         a              bibo:Journal ;
-        prism:issn     "1743-8977" ;
-        dcterms:title  "Particle and Fibre Toxicology" ;
-        bibo:issn      "1743-8977" ;
-        owl:sameAs     "urn:issn:1743-8977" .
+        prism:issn     "0300-483X" ;
+        dcterms:title  "Toxicology" ;
+        bibo:issn      "0300-483X" ;
+        owl:sameAs     "urn:issn:0300-483X" .
 
-author:satu-suhonen-2pp2tkkt9c4it
+author:per-axel-clausen-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Clausen" ;
+        foaf:givenName   "Per Axel" ;
+        foaf:name        "Per Axel Clausen" .
+
+author:petra-jackson-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Jackson" ;
+        foaf:givenName   "Petra" ;
+        foaf:name        "Petra Jackson" .
+
+author:jos-kleinjans-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Kleinjans" ;
+        foaf:givenName   "Jos" ;
+        foaf:name        "Jos Kleinjans" .
+
+author:jitka-stilund-hansen-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Hansen" ;
+        foaf:givenName   "Jitka Stilund" ;
+        foaf:name        "Jitka Stilund Hansen" .
+
+author:joost-van-delft-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "van Delft" ;
+        foaf:givenName   "Joost" ;
+        foaf:name        "Joost van Delft" .
+
+author:antonio-pietroiusti-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Pietroiusti" ;
+        foaf:givenName   "Antonio" ;
+        foaf:name        "Antonio Pietroiusti" .
+
+author:hannu-norppa-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Norppa" ;
+        foaf:givenName   "Hannu" ;
+        foaf:name        "Hannu Norppa" .
+
+<http://id.crossref.org/issn/1874-3919>
+        a              bibo:Journal ;
+        prism:issn     "1874-3919" ;
+        dcterms:title  "Journal of Proteomics" ;
+        bibo:issn      "1874-3919" ;
+        owl:sameAs     "urn:issn:1874-3919" .
+
+<http://id.crossref.org/issn/2040-3364>
+        a              bibo:Journal ;
+        prism:issn     "2040-3372" , "2040-3364" ;
+        dcterms:title  "Nanoscale" ;
+        bibo:issn      "2040-3372" , "2040-3364" ;
+        owl:sameAs     "urn:issn:2040-3364" , "urn:issn:2040-3372" .
+
+author:margriet-v-d-z-park-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Park" ;
+        foaf:givenName   "Margriet V.D.Z." ;
+        foaf:name        "Margriet V.D.Z. Park" .
+
+<http://id.crossref.org/issn/0890-6238>
+        a              bibo:Journal ;
+        prism:issn     "0890-6238" ;
+        dcterms:title  "Reproductive Toxicology" ;
+        bibo:issn      "0890-6238" ;
+        owl:sameAs     "urn:issn:0890-6238" .
+
+author:j-f-hedberg-bg68rtve2hc8
+        a                foaf:Person ;
+        foaf:familyName  "Hedberg" ;
+        foaf:givenName   "J.F." ;
+        foaf:name        "J.F. Hedberg" .
+
+author:dirk-jungmann-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Jungmann" ;
+        foaf:givenName   "Dirk" ;
+        foaf:name        "Dirk Jungmann" .
+
+author:pascale-chavatte-palmer-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Chavatte-Palmer" ;
+        foaf:givenName   "Pascale" ;
+        foaf:name        "Pascale Chavatte-Palmer" .
+
+author:satu-suhonen-2w4vv8hp5oqic
         a                foaf:Person ;
         foaf:familyName  "Suhonen" ;
         foaf:givenName   "Satu" ;
         foaf:name        "Satu Suhonen" .
 
-author:minnamari-vippola-2pp2tkkt9c4it
+<http://dx.doi.org/10.1016/j.reprotox.2015.05.015>
+        prism:doi           "10.1016/j.reprotox.2015.05.015" ;
+        prism:endingPage    "140" ;
+        prism:startingPage  "118" ;
+        prism:volume        "56" ;
+        dcterms:creator     author:anne-tarrade-12n56jyfixspx , author:delphine-rousseau-ralliard-12n56jyfixspx , author:margriet-v-d-z-park-12n56jyfixspx , author:flemming-r-cassee-12n56jyfixspx , author:wim-h-de-jong-12n56jyfixspx , author:antonio-pietroiusti-12n56jyfixspx , author:bryony-l-ross-12n56jyfixspx , author:ulla-vogel-12n56jyfixspx , author:aldert-h-piersma-12n56jyfixspx , author:pascale-chavatte-palmer-12n56jyfixspx , author:luisa-campagnolo-12n56jyfixspx , author:sarah-valentino-12n56jyfixspx , author:gary-r-hutchison-12n56jyfixspx , author:jitka-stilund-hansen-12n56jyfixspx , author:karin-srig-hougaard-12n56jyfixspx , author:petra-jackson-12n56jyfixspx , author:remy-slama-12n56jyfixspx , author:gerrit-wolterink-12n56jyfixspx ;
+        dcterms:date        "2015-08"^^xsd:gYearMonth ;
+        dcterms:identifier  "10.1016/j.reprotox.2015.05.015" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/0890-6238> ;
+        dcterms:publisher   "Elsevier BV" ;
+        dcterms:title       "A perspective on the developmental toxicity of inhaled nanoparticles" ;
+        bibo:doi            "10.1016/j.reprotox.2015.05.015" ;
+        bibo:pageEnd        "140" ;
+        bibo:pageStart      "118" ;
+        bibo:volume         "56" ;
+        owl:sameAs          <doi:10.1016/j.reprotox.2015.05.015> , <info:doi/10.1016/j.reprotox.2015.05.015> .
+
+author:kerstin-jurkschat-1ek79vckuuame
         a                foaf:Person ;
-        foaf:familyName  "Vippola" ;
-        foaf:givenName   "Minnamari" ;
-        foaf:name        "Minnamari Vippola" .
+        foaf:familyName  "Jurkschat" ;
+        foaf:givenName   "Kerstin" ;
+        foaf:name        "Kerstin Jurkschat" .
+
+author:aldert-h-piersma-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Piersma" ;
+        foaf:givenName   "Aldert H." ;
+        foaf:name        "Aldert H. Piersma" .
+
+author:keld-alstrup-jensen-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Jensen" ;
+        foaf:givenName   "Keld Alstrup" ;
+        foaf:name        "Keld Alstrup Jensen" .
+
+<http://dx.doi.org/10.1016/j.tox.2012.09.014>
+        prism:doi           "10.1016/j.tox.2012.09.014" ;
+        prism:endingPage    "48" ;
+        prism:startingPage  "38" ;
+        prism:volume        "313" ;
+        dcterms:creator     author:satu-suhonen-2w4vv8hp5oqic , author:hilkka-jarventaus-2w4vv8hp5oqic , author:per-axel-clausen-2w4vv8hp5oqic , author:penny-nymark-2w4vv8hp5oqic , author:renie-birkedal-2w4vv8hp5oqic , author:keld-alstrup-jensen-2w4vv8hp5oqic , author:julia-catalan-2w4vv8hp5oqic , author:hannu-norppa-2w4vv8hp5oqic , author:minnamari-vippola-2w4vv8hp5oqic , author:kai-savolainen-2w4vv8hp5oqic ;
+        dcterms:date        "2013-11"^^xsd:gYearMonth ;
+        dcterms:identifier  "10.1016/j.tox.2012.09.014" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/0300-483X> ;
+        dcterms:publisher   "Elsevier BV" ;
+        dcterms:title       "Genotoxicity of polyvinylpyrrolidone-coated silver nanoparticles in BEAS 2B cells" ;
+        bibo:doi            "10.1016/j.tox.2012.09.014" ;
+        bibo:pageEnd        "48" ;
+        bibo:pageStart      "38" ;
+        bibo:volume         "313" ;
+        owl:sameAs          <doi:10.1016/j.tox.2012.09.014> , <info:doi/10.1016/j.tox.2012.09.014> .
+
+author:penny-nymark-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Nymark" ;
+        foaf:givenName   "Penny" ;
+        foaf:name        "Penny Nymark" .
+
+author:linn-sgier-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Sgier" ;
+        foaf:givenName   "Linn" ;
+        foaf:name        "Linn Sgier" .
+
+author:rebeca-mallenco-fornies-19b2m2r17cuwh
+        a                foaf:Person ;
+        foaf:familyName  "Forniés" ;
+        foaf:givenName   "Rebeca Mallenco" ;
+        foaf:name        "Rebeca Mallenco Forniés" .
+
+<http://dx.doi.org/10.1039/C5NR02618K>
+        prism:doi           "10.1039/c5nr02618k" ;
+        prism:endingPage    "11990" ;
+        prism:startingPage  "11980" ;
+        prism:volume        "7" ;
+        dcterms:creator     author:andrew-mayes-1uai6y1tl7l2c , author:neil-rigby-1uai6y1tl7l2c , author:desire-di-silvio-1uai6y1tl7l2c , author:francesca-baldelli-bombelli-1uai6y1tl7l2c , author:balazs-bajka-1uai6y1tl7l2c , author:alan-mackie-1uai6y1tl7l2c ;
+        dcterms:date        "2015"^^xsd:gYear ;
+        dcterms:identifier  "10.1039/c5nr02618k" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/2040-3364> ;
+        dcterms:publisher   "Royal Society of Chemistry (RSC)" ;
+        dcterms:title       "Technical tip: high-resolution isolation of nanoparticle–protein corona complexes from physiological fluids" ;
+        bibo:doi            "10.1039/c5nr02618k" ;
+        bibo:pageEnd        "11990" ;
+        bibo:pageStart      "11980" ;
+        bibo:volume         "7" ;
+        owl:sameAs          <doi:10.1039/c5nr02618k> , <info:doi/10.1039/c5nr02618k> , <http://dx.doi.org/10.1039/c5nr02618k> .
 
 author:hannu-norppa-2pp2tkkt9c4it
         a                foaf:Person ;
@@ -33,17 +201,255 @@ author:hannu-norppa-2pp2tkkt9c4it
         foaf:givenName   "Hannu" ;
         foaf:name        "Hannu Norppa" .
 
-author:jensen-alstrup-2pp2tkkt9c4it
+<http://id.crossref.org/issn/0963-9292>
+        a              bibo:Journal ;
+        prism:issn     "0963-9292" , "1573-3017" ;
+        dcterms:title  "Ecotoxicology" ;
+        bibo:issn      "0963-9292" , "1573-3017" ;
+        owl:sameAs     "urn:issn:0963-9292" , "urn:issn:1573-3017" .
+
+author:minnamari-vippola-2w4vv8hp5oqic
         a                foaf:Person ;
-        foaf:familyName  "Alstrup" ;
-        foaf:givenName   "Jensen" ;
-        foaf:name        "Jensen Alstrup" .
+        foaf:familyName  "Vippola" ;
+        foaf:givenName   "Minnamari" ;
+        foaf:name        "Minnamari Vippola" .
+
+author:marcus-rybicki-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Rybicki" ;
+        foaf:givenName   "Marcus" ;
+        foaf:name        "Marcus Rybicki" .
+
+<http://id.crossref.org/issn/0944-1344>
+        a              bibo:Journal ;
+        prism:issn     "1614-7499" , "0944-1344" ;
+        dcterms:title  "Environmental Science and Pollution Research" ;
+        bibo:issn      "1614-7499" , "0944-1344" ;
+        owl:sameAs     "urn:issn:0944-1344" , "urn:issn:1614-7499" .
+
+author:h-l-karlsson-bg68rtve2hc8
+        a                foaf:Person ;
+        foaf:familyName  "Karlsson" ;
+        foaf:givenName   "H.L." ;
+        foaf:name        "H.L. Karlsson" .
+
+<http://dx.doi.org/10.1007/s11356-015-4887-7>
+        prism:doi           "10.1007/s11356-015-4887-7" ;
+        prism:endingPage    "4234" ;
+        prism:startingPage  "4218" ;
+        prism:volume        "23" ;
+        dcterms:creator     author:rudo-verweij-1ek79vckuuame , author:linn-sgier-1ek79vckuuame , author:marianne-matzke-1ek79vckuuame , author:thomas-backhaus-1ek79vckuuame , author:corinna-burkart-1ek79vckuuame , author:claus-svendsen-1ek79vckuuame , author:alexandra-kroll-1ek79vckuuame , author:dirk-jungmann-1ek79vckuuame , author:kerstin-jurkschat-1ek79vckuuame , author:marcus-rybicki-1ek79vckuuame , author:patrick-obert-rauser-1ek79vckuuame ;
+        dcterms:date        "2015-06-28"^^xsd:date ;
+        dcterms:identifier  "10.1007/s11356-015-4887-7" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/0944-1344> ;
+        dcterms:publisher   "Springer Science + Business Media" ;
+        dcterms:title       "Mixed messages from benthic microbial communities exposed to nanoparticulate and ionic silver: 3D structure picks up nano-specific effects, while EPS and traditional endpoints indicate a concentration-dependent impact of silver ions" ;
+        bibo:doi            "10.1007/s11356-015-4887-7" ;
+        bibo:pageEnd        "4234" ;
+        bibo:pageStart      "4218" ;
+        bibo:volume         "23" ;
+        owl:sameAs          <info:doi/10.1007/s11356-015-4887-7> , <doi:10.1007/s11356-015-4887-7> .
+
+author:anne-tarrade-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Tarrade" ;
+        foaf:givenName   "Anne" ;
+        foaf:name        "Anne Tarrade" .
+
+author:delphine-rousseau-ralliard-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Rousseau-Ralliard" ;
+        foaf:givenName   "Delphine" ;
+        foaf:name        "Delphine Rousseau-Ralliard" .
+
+author:marianne-matzke-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Matzke" ;
+        foaf:givenName   "Marianne" ;
+        foaf:name        "Marianne Matzke" .
+
+author:s-pradhan-bg68rtve2hc8
+        a                foaf:Person ;
+        foaf:familyName  "Pradhan" ;
+        foaf:givenName   "S." ;
+        foaf:name        "S. Pradhan" .
+
+author:kim-klein-19b2m2r17cuwh
+        a                foaf:Person ;
+        foaf:familyName  "Klein" ;
+        foaf:givenName   "Kim" ;
+        foaf:name        "Kim Klein" .
+
+author:patrick-obert-rauser-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Obert-Rauser" ;
+        foaf:givenName   "Patrick" ;
+        foaf:name        "Patrick Obert-Rauser" .
+
+author:karin-srig-hougaard-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Hougaard" ;
+        foaf:givenName   "Karin Sørig" ;
+        foaf:name        "Karin Sørig Hougaard" .
+
+author:balazs-bajka-1uai6y1tl7l2c
+        a                foaf:Person ;
+        foaf:familyName  "Bajka" ;
+        foaf:givenName   "Balazs" ;
+        foaf:name        "Balazs Bajka" .
+
+author:hilkka-jarventaus-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Järventaus" ;
+        foaf:givenName   "Hilkka" ;
+        foaf:name        "Hilkka Järventaus" .
+
+author:alexandra-kroll-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Kroll" ;
+        foaf:givenName   "Alexandra" ;
+        foaf:name        "Alexandra Kroll" .
+
+author:francesca-baldelli-bombelli-1uai6y1tl7l2c
+        a                foaf:Person ;
+        foaf:familyName  "Baldelli Bombelli" ;
+        foaf:givenName   "Francesca" ;
+        foaf:name        "Francesca Baldelli Bombelli" .
+
+author:f-cappellini-bg68rtve2hc8
+        a                foaf:Person ;
+        foaf:familyName  "Cappellini" ;
+        foaf:givenName   "F." ;
+        foaf:name        "F. Cappellini" .
 
 author:julia-catalan-2pp2tkkt9c4it
         a                foaf:Person ;
         foaf:familyName  "Catalán" ;
         foaf:givenName   "Julia" ;
         foaf:name        "Julia Catalán" .
+
+author:rudo-verweij-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Verweij" ;
+        foaf:givenName   "Rudo" ;
+        foaf:name        "Rudo Verweij" .
+
+author:yahia-kembouche-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Kembouche" ;
+        foaf:givenName   "Yahia" ;
+        foaf:name        "Yahia Kembouche" .
+
+author:claus-svendsen-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Svendsen" ;
+        foaf:givenName   "Claus" ;
+        foaf:name        "Claus Svendsen" .
+
+author:flemming-r-cassee-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Cassee" ;
+        foaf:givenName   "Flemming R." ;
+        foaf:name        "Flemming R. Cassee" .
+
+author:e-blomberg-bg68rtve2hc8
+        a                foaf:Person ;
+        foaf:familyName  "Blomberg" ;
+        foaf:givenName   "E." ;
+        foaf:name        "E. Blomberg" .
+
+author:sarah-valentino-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Valentino" ;
+        foaf:givenName   "Sarah" ;
+        foaf:name        "Sarah Valentino" .
+
+author:pauline-l-waalewijn-kool-19b2m2r17cuwh
+        a                foaf:Person ;
+        foaf:familyName  "Waalewijn-Kool" ;
+        foaf:givenName   "Pauline L." ;
+        foaf:name        "Pauline L. Waalewijn-Kool" .
+
+author:iseult-lynch-30s9h3gjhi1vt
+        a                foaf:Person ;
+        owl:sameAs       <http://orcid.org/0000-0003-4250-4584> ;
+        foaf:familyName  "Lynch" ;
+        foaf:givenName   "Iseult" ;
+        foaf:name        "Iseult Lynch" .
+
+<http://dx.doi.org/10.1016/j.jprot.2015.09.005>
+        prism:doi           "10.1016/j.jprot.2015.09.005" ;
+        prism:endingPage    "51" ;
+        prism:startingPage  "45" ;
+        prism:volume        "137" ;
+        dcterms:creator     author:iseult-lynch-30s9h3gjhi1vt , author:fatima-nasser-30s9h3gjhi1vt ;
+        dcterms:date        "2016-03"^^xsd:gYearMonth ;
+        dcterms:identifier  "10.1016/j.jprot.2015.09.005" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/1874-3919> ;
+        dcterms:publisher   "Elsevier BV" ;
+        dcterms:title       "Secreted protein eco-corona mediates uptake and impacts of polystyrene nanoparticles on Daphnia magna" ;
+        bibo:doi            "10.1016/j.jprot.2015.09.005" ;
+        bibo:pageEnd        "51" ;
+        bibo:pageStart      "45" ;
+        bibo:volume         "137" ;
+        owl:sameAs          <info:doi/10.1016/j.jprot.2015.09.005> , <doi:10.1016/j.jprot.2015.09.005> .
+
+<http://id.crossref.org/issn/0013-4686>
+        a              bibo:Journal ;
+        prism:issn     "0013-4686" ;
+        dcterms:title  "Electrochimica Acta" ;
+        bibo:issn      "0013-4686" ;
+        owl:sameAs     "urn:issn:0013-4686" .
+
+author:gary-r-hutchison-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Hutchison" ;
+        foaf:givenName   "Gary R." ;
+        foaf:name        "Gary R. Hutchison" .
+
+author:luisa-campagnolo-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Campagnolo" ;
+        foaf:givenName   "Luisa" ;
+        foaf:name        "Luisa Campagnolo" .
+
+author:y-s-hedberg-bg68rtve2hc8
+        a                foaf:Person ;
+        owl:sameAs       <http://orcid.org/0000-0003-2145-3650> ;
+        foaf:familyName  "Hedberg" ;
+        foaf:givenName   "Y.S." ;
+        foaf:name        "Y.S. Hedberg" .
+
+author:jacob-briede-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Briedé" ;
+        foaf:givenName   "Jacob" ;
+        foaf:name        "Jacob Briedé" .
+
+author:cornelis-a-m-van-gestel-19b2m2r17cuwh
+        a                foaf:Person ;
+        foaf:familyName  "van Gestel" ;
+        foaf:givenName   "Cornelis A. M." ;
+        foaf:name        "Cornelis A. M. van Gestel" .
+
+author:jensen-alstrup-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Alstrup" ;
+        foaf:givenName   "Jensen" ;
+        foaf:name        "Jensen Alstrup" .
+
+<http://id.crossref.org/issn/1743-8977>
+        a              bibo:Journal ;
+        prism:issn     "1743-8977" ;
+        dcterms:title  "Particle and Fibre Toxicology" ;
+        bibo:issn      "1743-8977" ;
+        owl:sameAs     "urn:issn:1743-8977" .
+
+author:renie-birkedal-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Birkedal" ;
+        foaf:givenName   "Renie" ;
+        foaf:name        "Renie Birkedal" .
 
 <http://dx.doi.org/10.1186/1743-8977-11-4>
         prism:doi           "10.1186/1743-8977-11-4" ;
@@ -60,32 +466,151 @@ author:julia-catalan-2pp2tkkt9c4it
         bibo:volume         "11" ;
         owl:sameAs          <doi:10.1186/1743-8977-11-4> , <info:doi/10.1186/1743-8977-11-4> .
 
-author:joost-van-delft-2pp2tkkt9c4it
+author:m-e-karlsson-bg68rtve2hc8
         a                foaf:Person ;
-        foaf:familyName  "van Delft" ;
-        foaf:givenName   "Joost" ;
-        foaf:name        "Joost van Delft" .
+        foaf:familyName  "Karlsson" ;
+        foaf:givenName   "M.-E." ;
+        foaf:name        "M.-E. Karlsson" .
 
-author:penny-nymark-2pp2tkkt9c4it
+author:corinna-burkart-1ek79vckuuame
+        a                foaf:Person ;
+        foaf:familyName  "Burkart" ;
+        foaf:givenName   "Corinna" ;
+        foaf:name        "Corinna Burkart" .
+
+author:penny-nymark-2w4vv8hp5oqic
         a                foaf:Person ;
         foaf:familyName  "Nymark" ;
         foaf:givenName   "Penny" ;
         foaf:name        "Penny Nymark" .
 
-author:yahia-kembouche-2pp2tkkt9c4it
+author:andrew-mayes-1uai6y1tl7l2c
         a                foaf:Person ;
-        foaf:familyName  "Kembouche" ;
-        foaf:givenName   "Yahia" ;
-        foaf:name        "Yahia Kembouche" .
+        foaf:familyName  "Mayes" ;
+        foaf:givenName   "Andrew" ;
+        foaf:name        "Andrew Mayes" .
 
-author:jacob-briede-2pp2tkkt9c4it
+author:desire-di-silvio-1uai6y1tl7l2c
         a                foaf:Person ;
-        foaf:familyName  "Briedé" ;
-        foaf:givenName   "Jacob" ;
-        foaf:name        "Jacob Briedé" .
+        foaf:familyName  "Di Silvio" ;
+        foaf:givenName   "Desirè" ;
+        foaf:name        "Desirè Di Silvio" .
 
-author:jos-kleinjans-2pp2tkkt9c4it
+author:thomas-backhaus-1ek79vckuuame
         a                foaf:Person ;
-        foaf:familyName  "Kleinjans" ;
-        foaf:givenName   "Jos" ;
-        foaf:name        "Jos Kleinjans" .
+        foaf:familyName  "Backhaus" ;
+        foaf:givenName   "Thomas" ;
+        foaf:name        "Thomas Backhaus" .
+
+author:satu-suhonen-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Suhonen" ;
+        foaf:givenName   "Satu" ;
+        foaf:name        "Satu Suhonen" .
+
+author:i-odnevall-wallinder-bg68rtve2hc8
+        a                foaf:Person ;
+        owl:sameAs       <http://orcid.org/0000-0003-2206-0082> ;
+        foaf:familyName  "Odnevall Wallinder" ;
+        foaf:givenName   "I." ;
+        foaf:name        "I. Odnevall Wallinder" .
+
+author:kai-savolainen-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Savolainen" ;
+        foaf:givenName   "Kai" ;
+        foaf:name        "Kai Savolainen" .
+
+author:remy-slama-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Slama" ;
+        foaf:givenName   "Rémy" ;
+        foaf:name        "Rémy Slama" .
+
+author:fatima-nasser-30s9h3gjhi1vt
+        a                foaf:Person ;
+        foaf:familyName  "Nasser" ;
+        foaf:givenName   "Fatima" ;
+        foaf:name        "Fatima Nasser" .
+
+<http://dx.doi.org/10.1016/j.electacta.2016.07.017>
+        prism:doi           "10.1016/j.electacta.2016.07.017" ;
+        prism:endingPage    "371" ;
+        prism:startingPage  "360" ;
+        prism:volume        "212" ;
+        dcterms:creator     author:e-blomberg-bg68rtve2hc8 , author:s-pradhan-bg68rtve2hc8 , author:h-l-karlsson-bg68rtve2hc8 , author:m-e-karlsson-bg68rtve2hc8 , author:y-s-hedberg-bg68rtve2hc8 , author:i-odnevall-wallinder-bg68rtve2hc8 , author:j-f-hedberg-bg68rtve2hc8 , author:f-cappellini-bg68rtve2hc8 ;
+        dcterms:date        "2016-09"^^xsd:gYearMonth ;
+        dcterms:identifier  "10.1016/j.electacta.2016.07.017" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/0013-4686> ;
+        dcterms:publisher   "Elsevier BV" ;
+        dcterms:title       "Electrochemical surface oxide characteristics of metal nanoparticles (Mn, Cu and Al) and the relation to toxicity" ;
+        bibo:doi            "10.1016/j.electacta.2016.07.017" ;
+        bibo:pageEnd        "371" ;
+        bibo:pageStart      "360" ;
+        bibo:volume         "212" ;
+        owl:sameAs          <info:doi/10.1016/j.electacta.2016.07.017> , <doi:10.1016/j.electacta.2016.07.017> .
+
+<http://dx.doi.org/10.1007/s10646-014-1302-y>
+        prism:doi           "10.1007/s10646-014-1302-y" ;
+        prism:endingPage    "1637" ;
+        prism:startingPage  "1629" ;
+        prism:volume        "23" ;
+        dcterms:creator     author:pauline-l-waalewijn-kool-19b2m2r17cuwh , author:rebeca-mallenco-fornies-19b2m2r17cuwh , author:kim-klein-19b2m2r17cuwh , author:cornelis-a-m-van-gestel-19b2m2r17cuwh ;
+        dcterms:date        "2014-08-20"^^xsd:date ;
+        dcterms:identifier  "10.1007/s10646-014-1302-y" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/0963-9292> ;
+        dcterms:publisher   "Springer Nature" ;
+        dcterms:title       "Bioaccumulation and toxicity of silver nanoparticles and silver nitrate to the soil arthropod Folsomia candida" ;
+        bibo:doi            "10.1007/s10646-014-1302-y" ;
+        bibo:pageEnd        "1637" ;
+        bibo:pageStart      "1629" ;
+        bibo:volume         "23" ;
+        owl:sameAs          <info:doi/10.1007/s10646-014-1302-y> , <doi:10.1007/s10646-014-1302-y> .
+
+author:gerrit-wolterink-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Wolterink" ;
+        foaf:givenName   "Gerrit" ;
+        foaf:name        "Gerrit Wolterink" .
+
+author:wim-h-de-jong-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "de Jong" ;
+        foaf:givenName   "Wim H." ;
+        foaf:name        "Wim H. de Jong" .
+
+author:neil-rigby-1uai6y1tl7l2c
+        a                foaf:Person ;
+        foaf:familyName  "Rigby" ;
+        foaf:givenName   "Neil" ;
+        foaf:name        "Neil Rigby" .
+
+author:minnamari-vippola-2pp2tkkt9c4it
+        a                foaf:Person ;
+        foaf:familyName  "Vippola" ;
+        foaf:givenName   "Minnamari" ;
+        foaf:name        "Minnamari Vippola" .
+
+author:bryony-l-ross-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Ross" ;
+        foaf:givenName   "Bryony L." ;
+        foaf:name        "Bryony L. Ross" .
+
+author:ulla-vogel-12n56jyfixspx
+        a                foaf:Person ;
+        foaf:familyName  "Vogel" ;
+        foaf:givenName   "Ulla" ;
+        foaf:name        "Ulla Vogel" .
+
+author:julia-catalan-2w4vv8hp5oqic
+        a                foaf:Person ;
+        foaf:familyName  "Catalán" ;
+        foaf:givenName   "Julia" ;
+        foaf:name        "Julia Catalán" .
+
+author:alan-mackie-1uai6y1tl7l2c
+        a                foaf:Person ;
+        foaf:familyName  "Mackie" ;
+        foaf:givenName   "Alan" ;
+        foaf:name        "Alan Mackie" .

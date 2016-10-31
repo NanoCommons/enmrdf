@@ -4,6 +4,7 @@ doiOutputFile = "/2nd NanoSafety Forum for Young Scientists/doi.ttl"
 if (ui.fileExists(outputFile)) ui.remove(outputFile)
 if (ui.fileExists(doiOutputFile)) ui.remove(doiOutputFile)
 
+processedDOIs = new ArrayList();
 doiData = rdf.createInMemoryStore()
 rdf.addPrefix(doiData, "foaf", "http://xmlns.com/foaf/0.1/")
 rdf.addPrefix(doiData, "author", "http://id.crossref.org/contributor/")
@@ -212,8 +213,15 @@ dataFile.eachLine { line, number ->
       "http://purl.org/net/cito/usesDataFrom",
       "http://doi.org/" + dataRow[2]
     )
-    doiContent = bioclipse.download("http://doi.org/10.1186/1743-8977-11-4", "text/turtle")
-    rdf.importFromString(doiData, doiContent, "TURTLE")
+  }
+  if (!processedDOIs.contains(dataRow[2])) {
+    processedDOIs.add(dataRow[2]);
+    doiURL = "http://doi.org/" + dataRow[2];
+    println ("DOI download: " + doiURL)
+    try { 
+      doiContent = bioclipse.download(doiURL, "text/turtle")
+      rdf.importFromString(doiData, doiContent, "TURTLE")
+    } catch (Exception x) {}
   }
 }
 
