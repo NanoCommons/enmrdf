@@ -115,7 +115,7 @@ ex:NFYS16-M9  a          obo:CHEBI_59999 ;
 
 ex:NFYS16-M14_size  a      bao:BAO_0000179 ;
         rdfs:label         "primary particle size" ;
-        cito:usesDataFrom  <http://doi.org/10.3109/17435390> ;
+        cito:usesDataFrom  <http://doi.org/10.3109/17435390.2015.1017022> ;
         sso:has-unit       "nm" ;
         sso:has-value      "74" .
 

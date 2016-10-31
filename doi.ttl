@@ -57,6 +57,12 @@ author:hannu-norppa-2w4vv8hp5oqic
         foaf:givenName   "Hannu" ;
         foaf:name        "Hannu Norppa" .
 
+author:maarten-l-j-coonen-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Coonen" ;
+        foaf:givenName   "Maarten L. J." ;
+        foaf:name        "Maarten L. J. Coonen" .
+
 <http://id.crossref.org/issn/1874-3919>
         a              bibo:Journal ;
         prism:issn     "1874-3919" ;
@@ -101,6 +107,12 @@ author:pascale-chavatte-palmer-12n56jyfixspx
         foaf:familyName  "Chavatte-Palmer" ;
         foaf:givenName   "Pascale" ;
         foaf:name        "Pascale Chavatte-Palmer" .
+
+author:peter-wijshoff-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Wijshoff" ;
+        foaf:givenName   "Peter" ;
+        foaf:name        "Peter Wijshoff" .
 
 author:satu-suhonen-2w4vv8hp5oqic
         a                foaf:Person ;
@@ -159,6 +171,12 @@ author:keld-alstrup-jensen-2w4vv8hp5oqic
         bibo:pageStart      "38" ;
         bibo:volume         "313" ;
         owl:sameAs          <doi:10.1016/j.tox.2012.09.014> , <info:doi/10.1016/j.tox.2012.09.014> .
+
+author:marcel-van-herwijnen-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "van Herwijnen" ;
+        foaf:givenName   "Marcel" ;
+        foaf:name        "Marcel van Herwijnen" .
 
 author:penny-nymark-2pp2tkkt9c4it
         a                foaf:Person ;
@@ -292,6 +310,12 @@ author:karin-srig-hougaard-12n56jyfixspx
         foaf:givenName   "Karin Sørig" ;
         foaf:name        "Karin Sørig Hougaard" .
 
+author:jacob-j-briede-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Briedé" ;
+        foaf:givenName   "Jacob J." ;
+        foaf:name        "Jacob J. Briedé" .
+
 author:balazs-bajka-1uai6y1tl7l2c
         a                foaf:Person ;
         foaf:familyName  "Bajka" ;
@@ -327,6 +351,13 @@ author:julia-catalan-2pp2tkkt9c4it
         foaf:familyName  "Catalán" ;
         foaf:givenName   "Julia" ;
         foaf:name        "Julia Catalán" .
+
+<http://id.crossref.org/issn/1743-5390>
+        a              bibo:Journal ;
+        prism:issn     "1743-5404" , "1743-5390" ;
+        dcterms:title  "Nanotoxicology" ;
+        bibo:issn      "1743-5404" , "1743-5390" ;
+        owl:sameAs     "urn:issn:1743-5390" , "urn:issn:1743-5404" .
 
 author:rudo-verweij-1ek79vckuuame
         a                foaf:Person ;
@@ -420,6 +451,12 @@ author:y-s-hedberg-bg68rtve2hc8
         foaf:givenName   "Y.S." ;
         foaf:name        "Y.S. Hedberg" .
 
+author:penny-nymark-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Nymark" ;
+        foaf:givenName   "Penny" ;
+        foaf:name        "Penny Nymark" .
+
 author:jacob-briede-2pp2tkkt9c4it
         a                foaf:Person ;
         foaf:familyName  "Briedé" ;
@@ -444,6 +481,12 @@ author:jensen-alstrup-2pp2tkkt9c4it
         dcterms:title  "Particle and Fibre Toxicology" ;
         bibo:issn      "1743-8977" ;
         owl:sameAs     "urn:issn:1743-8977" .
+
+author:hannu-norppa-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Norppa" ;
+        foaf:givenName   "Hannu" ;
+        foaf:name        "Hannu Norppa" .
 
 author:renie-birkedal-2w4vv8hp5oqic
         a                foaf:Person ;
@@ -484,6 +527,12 @@ author:penny-nymark-2w4vv8hp5oqic
         foaf:givenName   "Penny" ;
         foaf:name        "Penny Nymark" .
 
+author:jos-c-s-kleinjans-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Kleinjans" ;
+        foaf:givenName   "Jos C. S." ;
+        foaf:name        "Jos C. S. Kleinjans" .
+
 author:andrew-mayes-1uai6y1tl7l2c
         a                foaf:Person ;
         foaf:familyName  "Mayes" ;
@@ -495,6 +544,12 @@ author:desire-di-silvio-1uai6y1tl7l2c
         foaf:familyName  "Di Silvio" ;
         foaf:givenName   "Desirè" ;
         foaf:name        "Desirè Di Silvio" .
+
+author:rachel-cavill-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Cavill" ;
+        foaf:givenName   "Rachel" ;
+        foaf:name        "Rachel Cavill" .
 
 author:thomas-backhaus-1ek79vckuuame
         a                foaf:Person ;
@@ -526,6 +581,12 @@ author:remy-slama-12n56jyfixspx
         foaf:familyName  "Slama" ;
         foaf:givenName   "Rémy" ;
         foaf:name        "Rémy Slama" .
+
+author:julia-catalan-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Catalán" ;
+        foaf:givenName   "Julia" ;
+        foaf:name        "Julia Catalán" .
 
 author:fatima-nasser-30s9h3gjhi1vt
         a                foaf:Person ;
@@ -572,6 +633,29 @@ author:gerrit-wolterink-12n56jyfixspx
         foaf:familyName  "Wolterink" ;
         foaf:givenName   "Gerrit" ;
         foaf:name        "Gerrit Wolterink" .
+
+author:sandra-claessen-2h8074li6ywb8
+        a                foaf:Person ;
+        foaf:familyName  "Claessen" ;
+        foaf:givenName   "Sandra" ;
+        foaf:name        "Sandra Claessen" .
+
+<http://dx.doi.org/10.3109/17435390.2015.1017022>
+        prism:doi           "10.3109/17435390.2015.1017022" ;
+        prism:endingPage    "635" ;
+        prism:startingPage  "624" ;
+        prism:volume        "9" ;
+        dcterms:creator     author:julia-catalan-2h8074li6ywb8 , author:peter-wijshoff-2h8074li6ywb8 , author:penny-nymark-2h8074li6ywb8 , author:hannu-norppa-2h8074li6ywb8 , author:jos-c-s-kleinjans-2h8074li6ywb8 , author:maarten-l-j-coonen-2h8074li6ywb8 , author:jacob-j-briede-2h8074li6ywb8 , author:sandra-claessen-2h8074li6ywb8 , author:marcel-van-herwijnen-2h8074li6ywb8 , author:rachel-cavill-2h8074li6ywb8 ;
+        dcterms:date        "2015-04"^^xsd:gYearMonth ;
+        dcterms:identifier  "10.3109/17435390.2015.1017022" ;
+        dcterms:isPartOf    <http://id.crossref.org/issn/1743-5390> ;
+        dcterms:publisher   "Informa UK Limited" ;
+        dcterms:title       "Extensive temporal transcriptome and microRNA analyses identify molecular mechanisms underlying mitochondrial dysfunction induced by multi-walled carbon nanotubes in human lung cells" ;
+        bibo:doi            "10.3109/17435390.2015.1017022" ;
+        bibo:pageEnd        "635" ;
+        bibo:pageStart      "624" ;
+        bibo:volume         "9" ;
+        owl:sameAs          <doi:10.3109/17435390.2015.1017022> , <info:doi/10.3109/17435390.2015.1017022> .
 
 author:wim-h-de-jong-12n56jyfixspx
         a                foaf:Person ;
