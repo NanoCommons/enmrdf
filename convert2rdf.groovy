@@ -77,6 +77,7 @@ dataFile.eachLine { line, number ->
     "http://www.w3.org/2000/01/rdf-schema#label",
     dataRow[1]
   )
+  // core
   rdf.addObjectProperty(rdfData,
     nmRes,
     "http://purl.bioontology.org/ontology/npo#has_part",
@@ -110,6 +111,43 @@ dataFile.eachLine { line, number ->
       "http://semanticscience.org/resource/SIO_000300",
       possSMILES
     )
+  }
+  // coating
+  possSMILES = dataRow[6]
+  if (possSMILES != null && !possSMILES.isEmpty()) {
+    rdf.addObjectProperty(rdfData,
+      nmRes,
+      "http://purl.bioontology.org/ontology/npo#has_part",
+      nmRes + "_coat"
+    )
+    rdf.addDataProperty(rdfData,
+      nmRes + "_coat",
+      "http://www.w3.org/2000/01/rdf-schema#label",
+      dataRow[6]
+    )
+    rdf.addObjectProperty(rdfData,
+      nmRes + "_coat",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://purl.bioontology.org/ontology/npo#NPO_1367"
+    )
+    if (true) { // manually curated, otherwise: possSMILES.contains("[") || possSMILES.contains("=")) {
+      smiRes = nmRes + "_coat_smi"
+      rdf.addObjectProperty(rdfData,
+        nmRes + "_coat",
+        "http://semanticscience.org/resource/CHEMINF_000200",
+        smiRes
+      ) 
+      rdf.addObjectProperty(rdfData,
+        smiRes,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "http://semanticscience.org/resource/CHEMINF_000018"
+      )
+      rdf.addDataProperty(rdfData,
+        smiRes,
+        "http://semanticscience.org/resource/SIO_000300",
+        possSMILES
+      )
+    }
   }
   // size
   size = dataRow[3]
