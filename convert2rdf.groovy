@@ -52,7 +52,7 @@ dataFile.eachLine { line, number ->
     "http://purl.org/dc/terms/source",
     datasetStr
   )
-  nmType = dataRow[5]
+  nmType = dataRow[6]
   if (nmType.startsWith("ENM_")) {
     rdf.addObjectProperty(rdfData,
       nmRes,
@@ -86,7 +86,7 @@ dataFile.eachLine { line, number ->
   rdf.addDataProperty(rdfData,
     nmRes + "_core",
     "http://www.w3.org/2000/01/rdf-schema#label",
-    dataRow[4]
+    dataRow[5]
   )
   rdf.addObjectProperty(rdfData,
     nmRes + "_core",
@@ -113,7 +113,7 @@ dataFile.eachLine { line, number ->
     )
   }
   // coating
-  possSMILES = dataRow[6]
+  possSMILES = dataRow[7]
   if (possSMILES != null && !possSMILES.isEmpty()) {
     rdf.addObjectProperty(rdfData,
       nmRes,
@@ -123,7 +123,7 @@ dataFile.eachLine { line, number ->
     rdf.addDataProperty(rdfData,
       nmRes + "_coat",
       "http://www.w3.org/2000/01/rdf-schema#label",
-      dataRow[6]
+      dataRow[8]
     )
     rdf.addObjectProperty(rdfData,
       nmRes + "_coat",
@@ -204,7 +204,7 @@ dataFile.eachLine { line, number ->
     )
   }
   // zeta
-  zeta = dataRow[7]
+  zeta = dataRow[9]
   if (zeta != null && zeta.length() > 0) {
     if (zeta.contains("(")) {
       zeta = zeta.split("\\(")[0]

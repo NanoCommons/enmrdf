@@ -13,7 +13,7 @@
 @prefix obo:   <http://purl.obolibrary.org/obo/> .
 
 ex:NFYS16-M9_core  a        npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M9_core_smi .
 
 ex:NFYS16-M4_zetamg  a   obo:BAO_0000040 ;
@@ -28,14 +28,14 @@ ex:NFYS16-M2_core_smi
         sso:SIO_000300  "[Ag]" .
 
 ex:NFYS16-M12_core  a       npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M12_core_smi .
 
 ex:NFYS16-M5_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M5_size .
 
 ex:NFYS16-M11_core  a       npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M11_core_smi .
 
 ex:NFYS16-M12  a         obo:CHEBI_59999 ;
@@ -79,7 +79,7 @@ ex:NFYS16-M17_sizemg  a  obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M17_size .
 
 ex:NFYS16-M14_core  a       npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M14_core_smi .
 
 ex:NFYS16-M1_sizemg  a   obo:BAO_0000040 ;
@@ -100,7 +100,7 @@ ex:NFYS16-M7_coat_smi
         sso:SIO_000300  "O=C1N(C-C)CCC1" .
 
 ex:NFYS16-M13_core  a       npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbon" ;
         sso:CHEMINF_000200  ex:NFYS16-M13_core_smi .
 
 ex:NFYS16  a           void:Dataset ;
@@ -138,7 +138,7 @@ ex:NFYS16-M6_sizemg  a   obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M6_size .
 
 ex:NFYS16-M2_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
+        rdfs:label          "silver" ;
         sso:CHEMINF_000200  ex:NFYS16-M2_core_smi .
 
 ex:NFYS16-M13_sizemg  a  obo:BAO_0000040 ;
@@ -164,11 +164,11 @@ ex:NFYS16-M4_zeta  a       bao:BAO_0000179 ;
         sso:has-value      "-24" .
 
 ex:NFYS16-M16_core  a       npo:NPO_1888 ;
-        rdfs:label          "[Al]" ;
+        rdfs:label          "aluminum" ;
         sso:CHEMINF_000200  ex:NFYS16-M16_core_smi .
 
 ex:NFYS16-M1_core  a        npo:NPO_1888 ;
-        rdfs:label          "[O=Ti=O]" ;
+        rdfs:label          "titanium dioxide" ;
         sso:CHEMINF_000200  ex:NFYS16-M1_core_smi .
 
 ex:NFYS16-M17_core_smi
@@ -200,7 +200,7 @@ ex:NFYS16-M10_sizemg  a  obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M10_size .
 
 ex:NFYS16-M15_core  a       npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
+        rdfs:label          "silver" ;
         sso:CHEMINF_000200  ex:NFYS16-M15_core_smi .
 
 ex:NFYS16-M2_sizemg  a   obo:BAO_0000040 ;
@@ -233,11 +233,11 @@ ex:NFYS16-M10  a         obo:CHEBI_59999 ;
         dcterms:type     npo:NPO_354 .
 
 ex:NFYS16-M15_coat  a       npo:NPO_1367 ;
-        rdfs:label          "N1(C(CCC1)=O)CC" ;
+        rdfs:label          "PVP" ;
         sso:CHEMINF_000200  ex:NFYS16-M15_coat_smi .
 
 ex:NFYS16-M4_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Mn]" ;
+        rdfs:label          "manganese" ;
         sso:CHEMINF_000200  ex:NFYS16-M4_core_smi .
 
 ex:NFYS16-M16_zeta  a      bao:BAO_0000179 ;
@@ -263,7 +263,7 @@ ex:NFYS16-M2  a          obo:CHEBI_59999 ;
         dcterms:type     npo:NPO_1892 .
 
 ex:NFYS16-M3_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
+        rdfs:label          "silver" ;
         sso:CHEMINF_000200  ex:NFYS16-M3_core_smi .
 
 ex:NFYS16-M7_core_smi
@@ -290,7 +290,7 @@ ex:NFYS16-M4_size  a       bao:BAO_0000179 ;
         sso:has-value      "20" .
 
 ex:NFYS16-M17_core  a       npo:NPO_1888 ;
-        rdfs:label          "[Cu]" ;
+        rdfs:label          "copper" ;
         sso:CHEMINF_000200  ex:NFYS16-M17_core_smi .
 
 ex:NFYS16-M15  a         obo:CHEBI_59999 ;
@@ -325,7 +325,7 @@ ex:NFYS16-M13_core_smi
         sso:SIO_000300  "[C]" .
 
 ex:NFYS16-M6_core  a        npo:NPO_1888 ;
-        rdfs:label          "c1ccccc1C-C" ;
+        rdfs:label          "polystyrene" ;
         sso:CHEMINF_000200  ex:NFYS16-M6_core_smi .
 
 ex:NFYS16-M3_sizemg  a   obo:BAO_0000040 ;
@@ -355,7 +355,7 @@ ex:NFYS16-M1  a          obo:CHEBI_59999 ;
         dcterms:type     obo:CHEBI_51050 .
 
 ex:NFYS16-M5_core  a        npo:NPO_1888 ;
-        rdfs:label          "c1ccccc1C-C" ;
+        rdfs:label          "polystyrene" ;
         sso:CHEMINF_000200  ex:NFYS16-M5_core_smi .
 
 ex:NFYS16-M6_size  a       bao:BAO_0000179 ;
@@ -396,7 +396,7 @@ ex:NFYS16-M3_core_smi
         sso:SIO_000300  "[Ag]" .
 
 ex:NFYS16-M8_core  a        npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M8_core_smi .
 
 ex:NFYS16-M6  a          obo:CHEBI_59999 ;
@@ -420,7 +420,7 @@ ex:NFYS16-M12_sizemg  a  obo:BAO_0000040 ;
         obo:OBI_0000299  ex:NFYS16-M12_size .
 
 ex:NFYS16-M7_core  a        npo:NPO_1888 ;
-        rdfs:label          "[Ag]" ;
+        rdfs:label          "silver" ;
         sso:CHEMINF_000200  ex:NFYS16-M7_core_smi .
 
 ex:NFYS16-M4_sizemg  a   obo:BAO_0000040 ;
@@ -433,11 +433,11 @@ ex:NFYS16-M8_size  a       bao:BAO_0000179 ;
         sso:has-value      "74" .
 
 ex:NFYS16-M10_core  a       npo:NPO_1888 ;
-        rdfs:label          "[C]" ;
+        rdfs:label          "carbonnanotube" ;
         sso:CHEMINF_000200  ex:NFYS16-M10_core_smi .
 
 ex:NFYS16-M7_coat  a        npo:NPO_1367 ;
-        rdfs:label          "O=C1N(C-C)CCC1" ;
+        rdfs:label          "PVP" ;
         sso:CHEMINF_000200  ex:NFYS16-M7_coat_smi .
 
 ex:NFYS16-M13  a         obo:CHEBI_59999 ;
