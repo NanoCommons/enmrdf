@@ -102,6 +102,15 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLi
       rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].core.smiles)
       rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].core.label)
     }
+    if (nanomaterials[name].coating) {
+      coatingIRI = "${enmIRI}_coating"
+      rdf.addObjectProperty(store, enmIRI, "${npoNS}has_part", coatingIRI)
+      smilesIRI = "${coatingIRI}_smiles"
+      rdf.addObjectProperty(store, coatingIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
+      rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
+      rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].coating.smiles)
+      rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].coating.label)
+    }
   }
 }
 
