@@ -25,3 +25,13 @@ Structure information is linked via the npo:has_part predicate and experimental
 measurements (physchem, toxicity, eco, application) is linked via the
 obo:BFO_0000056 predicate. A classification of the nanomaterial can be provided
 with the dcterms:type predicate and an entry from the eNanoMapper ontology.
+
+The components:
+
+    ex:NFYS16-M12_core
+        a                      npo:NPO_1597 ;
+        sso:CHEMINF_000200     ex:NFYS16-M12_core_smiles .
+
+    ex:NFYS16-M12_core_smiles
+        a               sso:CHEMINF_000018 ;
+        sso:SIO_000300  "[C]" .
