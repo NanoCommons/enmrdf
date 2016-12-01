@@ -11,6 +11,11 @@ Copyright/License/Waiver: CCZero
 RDF Structures
 ==============
 
+A dataset:
+
+    etox:dataset  a    void:DataSet ;
+        dct:title  "NanoE-Tox RDF" .
+
 A material:
 
     ex:NFYS16-M12  a         obo:CHEBI_59999 ;

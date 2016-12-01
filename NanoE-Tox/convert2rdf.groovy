@@ -5,6 +5,7 @@ etoxNS = "http://egonw.github.com/enmrdf/nanoe-tox/"
 npoNS = "http://purl.bioontology.org/ontology/npo#"
 oboNS = "http://purl.obolibrary.org/obo/"
 ssoNS = "http://semanticscience.org/resource/"
+voidNS = "http://rdfs.org/ns/void#"
 
 nanomaterials = [
   "Ag" : [
@@ -72,6 +73,11 @@ rdf.addPrefix(store, "etox", etoxNS)
 rdf.addPrefix(store, "npo", npoNS)
 rdf.addPrefix(store, "obo", oboNS)
 rdf.addPrefix(store, "sso", ssoNS)
+rdf.addPrefix(store, "void", voidNS)
+
+datasetIRI = "${etoxNS}dataset"
+rdf.addObjectProperty(store, datasetIRI, rdfType, "${voidNS}DataSet")
+rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
 
 counter = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLine { line ->
