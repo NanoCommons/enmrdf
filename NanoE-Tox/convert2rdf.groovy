@@ -33,22 +33,27 @@ nanomaterials = [
     core : [ label : "CuO", smiles : "[Cu]O" ]
   ],
   "DWCNT" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_301",
     core : [ label : "carbon", smiles : "[C]" ]
   ],
 //Fe2O3
 //Fe3O4
   "MWCNT" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_354",
     core : [ label : "carbon", smiles : "[C]" ]
   ],
   "MWCNT-COOH" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_354",
     core : [ label : "carbon", smiles : "[C]" ],
     coating : [ label : "COOH", smiles : "C(=O)O" ]
   ],
   "MWCNT-OH" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_354",
     core : [ label : "carbon", smiles : "[C]" ],
     coating : [ label : "OH", smiles : "O" ]
   ],
   "SWCNT" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_943",
     core : [ label : "carbon", smiles : "[C]" ]
   ],
   "TiO2" : [
