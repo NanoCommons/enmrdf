@@ -36,8 +36,14 @@ nanomaterials = [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_301",
     core : [ label : "carbon", smiles : "[C]" ]
   ],
-//Fe2O3
-//Fe3O4
+  "Fe2O3" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_1550",
+    core : [ label : "Fe2O3" ]
+  ],
+  "Fe3O4" : [
+    iri : "http://purl.bioontology.org/ontology/npo#NPO_1548",
+    core : [ label : "Fe3O4" ]
+  ],
   "MWCNT" : [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_354",
     core : [ label : "carbon", smiles : "[C]" ]
