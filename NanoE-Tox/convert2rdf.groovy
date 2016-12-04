@@ -1,11 +1,15 @@
 outputFilename = "/NanoE-Tox/2190-4286-6-183-S2_Simpler.ttl"
 
+baoNS = "http://www.bioassayontology.org/bao#"
+dcNS = "http://purl.org/dc/elements/1.1/"
 dctNS = "http://purl.org/dc/terms/"
+enmNS = "http://purl.enanomapper.org/onto/"
 etoxNS = "http://egonw.github.com/enmrdf/nanoe-tox/"
 npoNS = "http://purl.bioontology.org/ontology/npo#"
 oboNS = "http://purl.obolibrary.org/obo/"
 ssoNS = "http://semanticscience.org/resource/"
 voidNS = "http://rdfs.org/ns/void#"
+xsdNS = "http://www.w3.org/2001/XMLSchema#"
 
 nanomaterials = [
   "Ag" : [
@@ -79,7 +83,10 @@ rdfsLabel = "http://www.w3.org/2000/01/rdf-schema#label"
 chebi59999 = "http://purl.obolibrary.org/obo/CHEBI_59999"
 
 store = rdf.createInMemoryStore()
+rdf.addPrefix(store, "bao", baoNS)
+rdf.addPrefix(store, "dc", dcNS)
 rdf.addPrefix(store, "dct", dctNS)
+rdf.addPrefix(store, "enm", enmNS)
 rdf.addPrefix(store, "etox", etoxNS)
 rdf.addPrefix(store, "npo", npoNS)
 rdf.addPrefix(store, "obo", oboNS)
@@ -96,7 +103,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLi
   counter++;
 
   // the next material
-  enmIRI = "$etoxNS$counter"
+  enmIRI = "${etoxNS}m$counter"
   rdf.addObjectProperty(store, enmIRI, rdfType, chebi59999)
 
   // the name
@@ -112,7 +119,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLi
     if (nanomaterials[name].iri) {
       rdf.addObjectProperty(store, enmIRI, "${dctNS}type", nanomaterials[name].iri)
     }
-    if (nanomaterials[name].core) {
+    if (nanomaterials[name].core && nanomaterials[name].core.smiles) {
       smilesIRI = "${coreIRI}_smiles"
       rdf.addObjectProperty(store, coreIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
       rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
@@ -129,6 +136,41 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLi
       rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].coating.label)
     }
   }
+  
+  // the diameter
+  diameter = fields[5]
+  if (diameter && diameter != "N/A" && diameter != "(") {
+    diameter = diameter.trim()
+    assayIRI = "${enmIRI}_sizeAssay"
+    measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup"
+    endpointIRI = "${enmIRI}_sizeEndpoint"
+
+    // the assay
+    rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1539")
+    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter")
+    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+
+    // the measurement group
+    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+
+    // the endpoint
+    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+ 
+    if (diameter.contains("-")) {
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+    } else if (diameter.contains("±")) {
+    } else if (diameter.contains("<")) {
+    } else {
+      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+    }
+  }
+
 }
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
