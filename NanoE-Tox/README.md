@@ -1,5 +1,5 @@
 Katre Juganson et al. have published a paper in BJON about NanoE-Tox. This database
-was composed by the Laboratory of Environmental Toxicology of NICPB (www.kbfi.ee).
+was composed by the Laboratory of Environmental Toxicology of NICPB (http://www.kbfi.ee/).
 The great news is that they released the content of this database under a
 CC-BY 2.0 license as supplementary information of the article: 
 
