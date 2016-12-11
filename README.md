@@ -52,3 +52,14 @@ Get links out to Sigma-Aldrich:
       ?enmMaterial foaf:page ?linkout .
       filter (regex(str(?linkout), "sigmaaldrich.com"))
     }
+
+And similarly to get own:sameAs links:
+
+    prefix owl: <http://www.w3.org/2002/07/owl#>
+    
+    construct {
+      ?enmMaterial owl:sameAs ?linkout
+    } where {
+      ?enmMaterial owl:sameAs ?linkout .
+      FILTER (regex(str(?linkout), "doi.org"))
+    }
