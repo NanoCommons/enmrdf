@@ -40,3 +40,15 @@ The components:
     ex:NFYS16-M12_core_smiles
         a               sso:CHEMINF_000018 ;
         sso:SIO_000300  "[C]" .
+
+Example SPARQL queries
+======================
+
+Get links out to Sigma-Aldrich:
+
+    prefix foaf: <http://xmlns.com/foaf/0.1/>
+    
+    select ?enmMaterial ?linkout where {
+      ?enmMaterial foaf:page ?linkout .
+      filter (regex(str(?linkout), "sigmaaldrich.com"))
+    }
