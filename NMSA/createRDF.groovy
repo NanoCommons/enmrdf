@@ -29,6 +29,7 @@ rdf.addPrefix(rdfData, "bao", "http://www.bioassayontology.org/bao#")
 rdf.addPrefix(rdfData, "cito", "http://purl.org/net/cito/")
 rdf.addPrefix(rdfData, "enm", "http://purl.enanomapper.org/onto/")
 rdf.addPrefix(rdfData, "foaf", "http://xmlns.com/foaf/0.1/")
+rdf.addPrefix(rdfData, "efo", "http://www.ebi.ac.uk/efo/")
 
 rdf.addPrefix(rdfData, "nmsa", "http://example.org/NMSA17/onto/")
 rdf.addPrefix(rdfData, "abstract", "http://example.org/NMSA17/abstract/")
@@ -56,18 +57,19 @@ rdf.addDataProperty(rdfData,
 )
 
 speciesMappings = new HashMap()
-  speciesMappings.put("(7955)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_7955") 
-  speciesMappings.put("Cyprinus carpio",          "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_7962") 
-  speciesMappings.put("Oncorhynchus mykiss",      "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_8022") 
-  speciesMappings.put("(9606)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_9606") 
-  speciesMappings.put("(10090)",                  "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10090") 
-  speciesMappings.put("(10116)",                  "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10116") 
+  speciesMappings.put("(7955)",                    "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_7955") 
+  speciesMappings.put("Cyprinus carpio",           "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_7962") 
+  speciesMappings.put("Oncorhynchus mykiss",       "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_8022") 
+  speciesMappings.put("(9606)",                    "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_9606") 
+  speciesMappings.put("(10090)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10090") 
+  speciesMappings.put("(10116)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10116") 
 
 enmMappings = new HashMap()
   enmMappings.put("MWCNT",                         "http://purl.bioontology.org/ontology/npo#NPO_354")
   enmMappings.put("multiwalled carbon nanotube",   "http://purl.bioontology.org/ontology/npo#NPO_354")
   enmMappings.put("NPO_401",                       "http://purl.bioontology.org/ontology/npo#NPO_401")
   enmMappings.put("gold nanoparticle",             "http://purl.bioontology.org/ontology/npo#NPO_401")
+  enmMappings.put("quantum dot",                   "http://purl.bioontology.org/ontology/npo#NPO_589")
   enmMappings.put("NPO_1375",                      "http://purl.bioontology.org/ontology/npo#NPO_1375")
   enmMappings.put("copper oxide",                  "http://purl.bioontology.org/ontology/npo#NPO_1544")
   enmMappings.put("nano-CuO",                      "http://purl.bioontology.org/ontology/npo#NPO_1544")
@@ -81,6 +83,11 @@ enmMappings = new HashMap()
   enmMappings.put("graphene oxide",                "http://purl.obolibrary.org/obo/CHEBI_132889")
   enmMappings.put("cerium oxide",                  "http://purl.enanomapper.org/onto/ENM_9000006")
   enmMappings.put("ENM_9000074",                   "http://purl.enanomapper.org/onto/ENM_9000074")
+
+clMappings = new HashMap()
+  clMappings.put("A549",                    "http://purl.obolibrary.org/obo/BTO_0000018")
+  clMappings.put("BEAS-2B",                 "http://www.ebi.ac.uk/efo/EFO_0001089")
+  clMappings.put("Jurkat",                  "http://www.ebi.ac.uk/efo/EFO_0002796")
 
 
 dataFile = new File(bioclipse.fullPath("/NMSA/responses.tsv"))
@@ -148,6 +155,21 @@ dataFile.eachLine { line, number ->
             abstractRes,
             "http://example.org/NMSA17/onto/aboutMaterial",
             materialsRes
+          )
+        }
+      }
+    }
+
+    // cell lines
+    cells = dataRow[5]
+    if (cells != null && !cells.trim().isEmpty()) {
+      for (searchTerm in clMappings.keySet()) {
+        if (cells.contains(searchTerm)) {
+          celllineRes = clMappings.get(searchTerm)
+          rdf.addObjectProperty(rdfData,
+            abstractRes,
+            "http://example.org/NMSA17/onto/withCellLine",
+            celllineRes
           )
         }
       }
