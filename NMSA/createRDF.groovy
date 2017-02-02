@@ -1,5 +1,6 @@
 outputFile = "/NMSA/data.ttl"
 doiOutputFile = "/NMSA/doi.ttl"
+orcidOutputFile = "/NMSA/orcid.ttl"
 
 if (ui.fileExists(outputFile)) ui.remove(outputFile)
 if (ui.fileExists(doiOutputFile)) ui.remove(doiOutputFile)
@@ -113,19 +114,37 @@ dataFile.eachLine { line, number ->
       if (orcids.contains(",")) { // multiple authors
         orcidList = orcids.split(/,/)
         for (orcid in orcidList) {
-          orcidRes = "http://orcid.org/" + orcid.trim()
+          orcid = orcid.trim()
+          orcidURL = "http://orcid.org/" + orcid.trim()
+          if (!processedORCIDs.contains(orcid)) {
+            processedORCIDs.add(orcid);
+//            println ("ORCID download: " + orcidURL)
+//            try { 
+//              orcidContent = bioclipse.download(orcidURL, "text/turtle")
+//              rdf.importFromString(orcidData, orcidContent, "TURTLE")
+//            } catch (Exception x) {}
+          }
           rdf.addObjectProperty(rdfData,
             abstractRes,
             "http://purl.org/dc/terms/creator",
-            orcidRes
+            orcidURL
           )
         }
       } else { // single author
-        orcidRes = "http://orcid.org/" + orcids.trim()
+        orcid = orcids.trim()
+        orcidURL = "http://orcid.org/" + orcid.trim()
+        if (!processedORCIDs.contains(orcid)) {
+          processedORCIDs.add(orcid);
+//          println ("ORCID download: " + orcidURL)
+//          try { 
+//            orcidContent = bioclipse.download(orcidURL, "text/turtle")
+//            rdf.importFromString(orcidData, orcidContent, "TURTLE")
+//          } catch (Exception x) {}
+        }
         rdf.addObjectProperty(rdfData,
           abstractRes,
           "http://purl.org/dc/terms/creator",
-          orcidRes
+          orcidURL
         )
       }
     }
@@ -182,5 +201,6 @@ dataFile.eachLine { line, number ->
 
 ui.append(outputFile, rdf.asTurtle(rdfData))
 ui.append(doiOutputFile, rdf.asTurtle(doiData))
+ui.append(orcidOutputFile, rdf.asTurtle(orcidData))
 
 ui.open(outputFile)
