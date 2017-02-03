@@ -116,17 +116,14 @@ for (row=1; row<=abstracts.rowCount; row++) {
     aReport.addText("Materials: ", "BOLD")
     for (enm in allMaterials.getColumn("enm")) {
       label = owlapi.getLabel(ontologyObj, enm)
-      if (label == null) {
-        aReport.addText(enm, "ITALIC")
-      } else {
-        aReport.addText(label + " (")
-          .addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + enm.encodeURL(), shorten(enm))
-          .addText(",")
-        shortened = shorten(enm)
-        if (shortened.length() < 10)
-          aReport.addLink("https://search.data.enanomapper.net/new/?search=" + shorten(enm), "search online")
-        aReport.addText(") ")
-      }
+      if (label == null || label.trim().length() == 0) label = shorten(enm)
+      aReport.addText(label + " (")
+        .addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + enm.encodeURL(), shorten(enm))
+      shortened = shorten(enm)
+      if (!shortened.contains("http"))
+        aReport.addText(", ")
+          .addLink("https://search.data.enanomapper.net/?search=" + shortened, "search online")
+      aReport.addText(") ")
     }
     aReport.forceNewLine()
   }
@@ -140,13 +137,11 @@ for (row=1; row<=abstracts.rowCount; row++) {
   if (allSpecies.rowCount > 0) {
     aReport.addText("Species: ", "BOLD")
     for (species in allSpecies.getColumn("species")) {
-      label = owlapi.getLabel(ontologyObj, species)
+      label = labelSpecies(shorten(species))
       if (label == null || label.trim().length() == 0) {
         aReport.addLink(species, labelSpecies(shorten(species)))
       } else {
-        aReport.addText(label + " (")
-          .addLink("http://www.ontobee.org/ontology/NCBITaxon?iri=" + species, labelSpecies(shorten(species)))
-          .addText(") ")
+        aReport.addLink("http://www.ontobee.org/ontology/NCBITaxon?iri=" + species, labelSpecies(shorten(species)))
       }
     }
     aReport.forceNewLine()
