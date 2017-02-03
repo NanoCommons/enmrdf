@@ -115,13 +115,13 @@ dataFile.eachLine { line, number ->
     println "Incorrect abstract number on line $number: $abstractNo"
     return
   }
+  abstractRes = datasetStr + "/abstract/a" + abstractNo
   rdf.addDataProperty(rdfData,
     abstractRes,
     "http://purl.org/dc/terms/identifier",
     abstractNo
   )
   try {
-    abstractRes = datasetStr + "/abstract/a" + dataRow[1]
     rdf.addObjectProperty(rdfData,
       abstractRes,
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
