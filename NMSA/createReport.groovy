@@ -1,6 +1,27 @@
 nmsaData = rdf.createInMemoryStore()
 rdf.importFile(nmsaData, "/NMSA/data.ttl", "TURTLE")
 
+def labelSpecies(taxon) {
+  label = taxon
+  taxon = taxon.replace("7955",  "Danio rerio")
+  taxon = taxon.replace("7962",  "Cyprinus carpio")
+  taxon = taxon.replace("8022",  "Oncorhynchus mykiss")
+  taxon = taxon.replace("9606",  "Homo sapiens")
+  taxon = taxon.replace("10090", "Mus musculus")
+  taxon = taxon.replace("10116", "Rattus norvegicus")
+  taxon = taxon.replace("35525", "Daphnia magna")
+  return taxon
+}
+
+def shorten(iri) {
+  iri = iri.replace("http://orcid.org/", "")
+  iri = iri.replace("http://purl.obolibrary.org/obo/NCBITaxon_", "")
+  iri = iri.replace("http://purl.obolibrary.org/obo/", "")
+  iri = iri.replace("http://www.ebi.ac.uk/efo/", "")
+  iri = iri.replace("http://purl.enanomapper.org/onto/", "")
+  iri = iri.replace("http://purl.bioontology.org/ontology/npo#", "")
+  return iri
+}
 
 mapper = null; // initially no mapper
 
@@ -8,7 +29,7 @@ def addImport(mapper, ontologyURI, ontologyFile) {
   localFile = "/eNanoMapper/" + ontologyFile;
   mapper = owlapi.addMapping(mapper, ontologyURI, localFile);
   if (!ui.fileExists(localFile)) {
-    ui.beginTask("Downloading a local copy of " + ontologyFile + "...")
+    // ui.beginTask("Downloading a local copy of " + ontologyFile + "...")
     bioclipse.downloadAsFile(ontologyURI, localFile);
   }
   return mapper;
@@ -41,6 +62,8 @@ addImport(mapper, "http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl", "
 ontologyObj = owlapi.load("/eNanoMapper/enanomapper.owl", mapper);
 
 
+// Now do the real reporting
+
 allAbstractsQuery = """
 SELECT ?abstract ?id WHERE {
   ?abstract a <http://edamontology.org/data_2849> ;
@@ -72,7 +95,8 @@ for (row=1; row<=abstracts.rowCount; row++) {
   if (allAuthors.rowCount > 0) {
     aReport.addText("Authors: ", "BOLD")
     for (author in allAuthors.getColumn("author")) {
-      aReport.addLink("http://orcid/org/$author", author)
+      aReport.addText("<img src=\"https://orcid.org/sites/default/files/images/orcid_16x16.png\" />&nbsp;")
+        .addLink(author, shorten(author)).addText(" ")
     }
     aReport.forceNewLine()
   }
@@ -91,8 +115,8 @@ for (row=1; row<=abstracts.rowCount; row++) {
         aReport.addText(enm, "ITALIC")
       } else {
         aReport.addText(label + " (")
-          .addLink(enm, enm) // TODO: use BioPortal-ENM link
-          .addText(")")
+          .addLink(enm, shorten(enm)) // TODO: use BioPortal-ENM link
+          .addText(") ")
       }
     }
     aReport.forceNewLine()
@@ -109,10 +133,10 @@ for (row=1; row<=abstracts.rowCount; row++) {
     for (species in allSpecies.getColumn("species")) {
       label = owlapi.getLabel(ontologyObj, species)
       if (label == null || label.trim().length() == 0) {
-        aReport.addLink(species, species)
+        aReport.addLink(species, labelSpecies(shorten(species)))
       } else {
         aReport.addText(label + " (")
-          .addLink(species, species) // TODO: use BioPortal-ENM link
+          .addLink(species, labelSpecies(shorten(species))) // TODO: use BioPortal-ENM link
           .addText(") ")
       }
     }
