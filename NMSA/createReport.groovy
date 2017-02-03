@@ -1,6 +1,10 @@
 nmsaData = rdf.createInMemoryStore()
 rdf.importFile(nmsaData, "/NMSA/data.ttl", "TURTLE")
 
+String.metaClass.encodeURL = {
+   java.net.URLEncoder.encode(delegate, "UTF-8")
+}
+
 def labelSpecies(taxon) {
   label = taxon
   taxon = taxon.replace("7955",  "Danio rerio")
@@ -80,6 +84,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
   if (ui.fileExists(outputFile)) ui.remove(outputFile)
 
   aReport = report.createReport()
+    .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
     .createHeader("","Recommendations based on Abstract $abstrID")
     .startSection("Recommendations based on the annotation of abstract $abstrID")
 
@@ -115,8 +120,12 @@ for (row=1; row<=abstracts.rowCount; row++) {
         aReport.addText(enm, "ITALIC")
       } else {
         aReport.addText(label + " (")
-          .addLink(enm, shorten(enm)) // TODO: use BioPortal-ENM link
-          .addText(") ")
+          .addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + enm.encodeURL(), shorten(enm))
+          .addText(",")
+        shortened = shorten(enm)
+        if (shortened.length() < 10)
+          aReport.addLink("https://search.data.enanomapper.net/new/?search=" + shorten(enm), "search online")
+        aReport.addText(") ")
       }
     }
     aReport.forceNewLine()
@@ -136,7 +145,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
         aReport.addLink(species, labelSpecies(shorten(species)))
       } else {
         aReport.addText(label + " (")
-          .addLink(species, labelSpecies(shorten(species))) // TODO: use BioPortal-ENM link
+          .addLink("http://www.ontobee.org/ontology/NCBITaxon?iri=" + species, labelSpecies(shorten(species)))
           .addText(") ")
       }
     }
