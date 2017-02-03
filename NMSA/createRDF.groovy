@@ -64,6 +64,7 @@ speciesMappings = new HashMap()
   speciesMappings.put("(9606)",                    "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_9606") 
   speciesMappings.put("(10090)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10090") 
   speciesMappings.put("(10116)",                   "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_10116") 
+  speciesMappings.put("Daphnia magna",             "http://purl.org/obo/owl/NCBITaxon#NCBITaxon_35525") 
 
 enmMappings = new HashMap()
   enmMappings.put("MWCNT",                         "http://purl.bioontology.org/ontology/npo#NPO_354")
@@ -71,6 +72,7 @@ enmMappings = new HashMap()
   enmMappings.put("NPO_401",                       "http://purl.bioontology.org/ontology/npo#NPO_401")
   enmMappings.put("gold nanoparticle",             "http://purl.bioontology.org/ontology/npo#NPO_401")
   enmMappings.put("quantum dot",                   "http://purl.bioontology.org/ontology/npo#NPO_589")
+  enmMappings.put("PAMAM",                         "http://purl.bioontology.org/ontology/npo#NPO_965")
   enmMappings.put("NPO_1375",                      "http://purl.bioontology.org/ontology/npo#NPO_1375")
   enmMappings.put("copper oxide",                  "http://purl.bioontology.org/ontology/npo#NPO_1544")
   enmMappings.put("nano-CuO",                      "http://purl.bioontology.org/ontology/npo#NPO_1544")
@@ -82,20 +84,43 @@ enmMappings = new HashMap()
   enmMappings.put("titanium dioxide nanoparticle", "http://purl.obolibrary.org/obo/CHEBI_51050")
   enmMappings.put("copper (II) oxide",             "http://purl.obolibrary.org/obo/CHEBI_83159")
   enmMappings.put("graphene oxide",                "http://purl.obolibrary.org/obo/CHEBI_132889")
+  enmMappings.put("polystyrene",                   "http://purl.obolibrary.org/obo/CHEBI_134403")
+  enmMappings.put("polysterene",                   "http://purl.obolibrary.org/obo/CHEBI_134403")
   enmMappings.put("cerium oxide",                  "http://purl.enanomapper.org/onto/ENM_9000006")
   enmMappings.put("ENM_9000074",                   "http://purl.enanomapper.org/onto/ENM_9000074")
 
 clMappings = new HashMap()
   clMappings.put("A549",                    "http://purl.obolibrary.org/obo/BTO_0000018")
+  clMappings.put("RTL-W1",                  "http://purl.obolibrary.org/obo/BTO_0000224")
+  clMappings.put("HMC-1",                   "http://purl.obolibrary.org/obo/BTO_0001669")
+  clMappings.put("EFO_0003064",             "http://purl.obolibrary.org/obo/BTO_0001845")
+  clMappings.put("plhc-1",                  "http://purl.obolibrary.org/obo/BTO_0002331")
+  clMappings.put("EAhy926",                 "http://purl.obolibrary.org/obo/BTO_0002602")
+  clMappings.put("human blood derived dendritic cells",
+                                            "http://www.ebi.ac.uk/efo/EFO_0000396")
   clMappings.put("BEAS-2B",                 "http://www.ebi.ac.uk/efo/EFO_0001089")
+  clMappings.put("Caco-2",                  "http://www.ebi.ac.uk/efo/EFO_0001099")
+  clMappings.put("HepaRG",                  "http://www.ebi.ac.uk/efo/EFO_0001186")
+  clMappings.put("THP-1",                   "http://www.ebi.ac.uk/efo/EFO_0001253")
   clMappings.put("Jurkat",                  "http://www.ebi.ac.uk/efo/EFO_0002796")
-
+  clMappings.put("CLC",                     "http://purl.obolibrary.org/obo/CL_0000738")
+  clMappings.put("rth-149",                 "http://purl.obolibrary.org/obo/CL_0002618")
 
 dataFile = new File(bioclipse.fullPath("/NMSA/responses.tsv"))
 dataFile.eachLine { line, number ->
   if (number < 2) return;
+  dataRow = line.split(/\t/)
+  abstractNo = dataRow[1]
+  try { Integer.valueOf(abstractNo) } catch (Exception e) {
+    println "Incorrect abstract number on line $number: $abstractNo"
+    return
+  }
+  rdf.addDataProperty(rdfData,
+    abstractRes,
+    "http://purl.org/dc/terms/identifier",
+    abstractNo
+  )
   try {
-    dataRow = line.split(/\t/)
     abstractRes = datasetStr + "/abstract/a" + dataRow[1]
     rdf.addObjectProperty(rdfData,
       abstractRes,
@@ -113,6 +138,44 @@ dataFile.eachLine { line, number ->
     if (orcids != null && !orcids.trim().isEmpty()) {
       if (orcids.contains(",")) { // multiple authors
         orcidList = orcids.split(/,/)
+        for (orcid in orcidList) {
+          orcid = orcid.trim()
+          orcidURL = "http://orcid.org/" + orcid.trim()
+          if (!processedORCIDs.contains(orcid)) {
+            processedORCIDs.add(orcid);
+//            println ("ORCID download: " + orcidURL)
+//            try { 
+//              orcidContent = bioclipse.download(orcidURL, "text/turtle")
+//              rdf.importFromString(orcidData, orcidContent, "TURTLE")
+//            } catch (Exception x) {}
+          }
+          rdf.addObjectProperty(rdfData,
+            abstractRes,
+            "http://purl.org/dc/terms/creator",
+            orcidURL
+          )
+        }
+      } else if (orcids.contains(";")) { // multiple authors
+        orcidList = orcids.split(/;/)
+        for (orcid in orcidList) {
+          orcid = orcid.trim()
+          orcidURL = "http://orcid.org/" + orcid.trim()
+          if (!processedORCIDs.contains(orcid)) {
+            processedORCIDs.add(orcid);
+//            println ("ORCID download: " + orcidURL)
+//            try { 
+//              orcidContent = bioclipse.download(orcidURL, "text/turtle")
+//              rdf.importFromString(orcidData, orcidContent, "TURTLE")
+//            } catch (Exception x) {}
+          }
+          rdf.addObjectProperty(rdfData,
+            abstractRes,
+            "http://purl.org/dc/terms/creator",
+            orcidURL
+          )
+        }
+      } else if (orcids.contains(" ")) { // multiple authors
+        orcidList = orcids.split(/ /)
         for (orcid in orcidList) {
           orcid = orcid.trim()
           orcidURL = "http://orcid.org/" + orcid.trim()
@@ -153,7 +216,7 @@ dataFile.eachLine { line, number ->
     species = dataRow[4]
     if (species != null && !species.trim().isEmpty()) {
       for (searchTerm in speciesMappings.keySet()) {
-        if (materials.toLowerCase().contains(searchTerm.toLowerCase())) {
+        if (species.toLowerCase().contains(searchTerm.toLowerCase())) {
           speciesRes = speciesMappings.get(searchTerm)
           rdf.addObjectProperty(rdfData,
             abstractRes,
