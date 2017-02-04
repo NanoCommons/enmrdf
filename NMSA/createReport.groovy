@@ -8,6 +8,7 @@ String.metaClass.encodeURL = {
 
 def labelSpecies(taxon) {
   label = taxon
+  taxon = taxon.replace("562",   "Escherichia coli")
   taxon = taxon.replace("7955",  "Danio rerio")
   taxon = taxon.replace("7962",  "Cyprinus carpio")
   taxon = taxon.replace("8022",  "Oncorhynchus mykiss")
