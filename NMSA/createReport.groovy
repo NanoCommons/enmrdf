@@ -213,6 +213,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
       } else {
         aReport.addLink("http://www.ontobee.org/ontology/NCBITaxon?iri=" + species, labelSpecies(shorten(species)))
       }
+      aReport.addText(" ")
     }
     aReport.forceNewLine()
   }
@@ -226,12 +227,10 @@ for (row=1; row<=abstracts.rowCount; row++) {
   if (allLines.rowCount > 0) {
     aReport.addText("Cell lines: ", "BOLD")
     for (cellline in allLines.getColumn("cellline")) {
-      label = shorten(cellline)
-      if (label == null || label.trim().length() == 0) {
-        aReport.addLink(cellline, shorten(cellline))
-      } else {
-        aReport.addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + cellline.encodeURL(), shorten(cellline))
-      }
+      label = owlapi.getLabel(ontologyObj, cellline)
+      if (label == null || label.trim().length() == 0) label = shorten(cellline)
+      aReport.addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + cellline.encodeURL(), label)
+      aReport.addText(" ")
     }
     aReport.forceNewLine()
   }
@@ -343,7 +342,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
     for (cellline in allCellLines.getColumn("cellline")) {
       label = owlapi.getLabel(ontologyObj, cellline)
       if (label == null || label.trim().length() == 0) label = shorten(cellline)
-      allAbstractsForSpeciesQuery = """
+      allAbstractsForCellLinesQuery = """
         SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
           ?abstract <http://example.org/NMSA17/onto/withCellLine> <$cellline> ;
             <http://purl.org/dc/terms/identifier> ?id ;
@@ -355,7 +354,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
           OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
         } ORDER BY ASC(?id)
       """
-      allAbstractMatches = rdf.sparql(nmsaData, allAbstractsForSpeciesQuery)
+      allAbstractMatches = rdf.sparql(nmsaData, allAbstractsForCellLinesQuery)
       if (allAbstractMatches.rowCount > 1) {
         aReport.addText("Other abstracts about ")
           .addText(labelSpecies(label), "BOLD").forceNewLine()
