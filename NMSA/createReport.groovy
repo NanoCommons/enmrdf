@@ -1,5 +1,6 @@
 nmsaData = rdf.createInMemoryStore()
 rdf.importFile(nmsaData, "/NMSA/data.ttl", "TURTLE")
+rdf.importFile(nmsaData, "/NMSA/moredata.ttl", "TURTLE")
 
 String.metaClass.encodeURL = {
    java.net.URLEncoder.encode(delegate, "UTF-8")
@@ -69,9 +70,14 @@ ontologyObj = owlapi.load("/eNanoMapper/enanomapper.owl", mapper);
 // Now do the real reporting
 
 allAbstractsQuery = """
-SELECT ?abstract ?id WHERE {
+SELECT ?abstract ?id ?title ?session ?start ?end WHERE {
   ?abstract a <http://edamontology.org/data_2849> ;
-    <http://purl.org/dc/terms/identifier> ?id .
+    <http://purl.org/dc/terms/identifier> ?id ;
+    <http://purl.org/dc/terms/title> ?title ;
+    <http://example.org/NMSA17/onto/session> ?session ;
+    <http://example.org/NMSA17/onto/startTime> ?start ;
+    <http://example.org/NMSA17/onto/endTime> ?end .
+  OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
 }
 """
 
@@ -87,9 +93,23 @@ for (row=1; row<=abstracts.rowCount; row++) {
     .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
     .createHeader("","Recommendations based on Abstract $abstrID")
     .startSection("Recommendations based on the annotation of abstract $abstrID")
-
+    .addText(abstracts.get(row, "title"))
+    .forceNewLine()
+  if (abstracts.get(row, "session").contains("Poster")) {
+    aReport
+      .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
+  } else {
+    aReport
+      .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
+  }
   aReport
-    .startSubSection("Details")
+    .addText(
+      abstracts.get(row, "session") + " - " +
+      abstracts.get(row, "start") + "-" +
+      abstracts.get(row, "end")
+    )
+    .forceNewLine()
+    .forceNewLine()
 
   allAuthorsQuery = """
     SELECT ?author WHERE {
@@ -122,7 +142,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
       shortened = shorten(enm)
       if (!shortened.contains("http"))
         aReport.addText(", ")
-          .addLink("https://search.data.enanomapper.net/?search=" + shortened, "search online")
+          .addLink("https://search.data.enanomapper.net/?search=" + shortened, "search via eNanoMapper")
       aReport.addText(") ")
     }
     aReport.forceNewLine()
@@ -147,10 +167,176 @@ for (row=1; row<=abstracts.rowCount; row++) {
     aReport.forceNewLine()
   }
 
+  allCellsQuery = """
+    SELECT ?cellline WHERE {
+      <$abstrIRI> <http://example.org/NMSA17/onto/withCellLine> ?cellline
+    }
+  """
+  allLines = rdf.sparql(nmsaData, allCellsQuery)
+  if (allLines.rowCount > 0) {
+    aReport.addText("Cell lines: ", "BOLD")
+    for (cellline in allLines.getColumn("cellline")) {
+      label = shorten(cellline)
+      if (label == null || label.trim().length() == 0) {
+        aReport.addLink(cellline, shorten(cellline))
+      } else {
+        aReport.addLink("http://bioportal.bioontology.org/ontologies/ENM/?p=classes&jump_to_nav=true&conceptid=" + cellline.encodeURL(), shorten(cellline))
+      }
+    }
+    aReport.forceNewLine()
+  }
+
   aReport
-    .startSubSection("Interesting abstracts")
+    .startSubSection("Recommended abstracts")
+
+  aReport
+    .startSubSubSection("Same material")
+  allMaterialsQuery = """
+    SELECT ?enm WHERE {
+      <$abstrIRI> <http://example.org/NMSA17/onto/aboutMaterial> ?enm
+    }
+  """
+  allMaterials = rdf.sparql(nmsaData, allMaterialsQuery)
+  if (allMaterials.rowCount > 0) {
+    for (enm in allMaterials.getColumn("enm")) {
+      label = owlapi.getLabel(ontologyObj, enm)
+      if (label == null || label.trim().length() == 0) label = shorten(enm)
+      allAbstractsForMaterialQuery = """
+        SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
+          ?abstract <http://example.org/NMSA17/onto/aboutMaterial> <$enm> ;
+            <http://purl.org/dc/terms/identifier> ?id ;
+            <http://purl.org/dc/terms/title> ?title ;
+            <http://example.org/NMSA17/onto/session> ?session ;
+            <http://example.org/NMSA17/onto/day> ?day ;
+            <http://example.org/NMSA17/onto/startTime> ?start ;
+            <http://example.org/NMSA17/onto/endTime> ?end .
+          OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
+        } ORDER BY ASC(?id)
+      """
+      allAbstractMatches = rdf.sparql(nmsaData, allAbstractsForMaterialQuery)
+      if (allAbstractMatches.rowCount > 1) {
+        aReport.addText("Other abstracts about ")
+          .addText(label, "BOLD").forceNewLine()
+          .startIndent()
+        for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
+          matchID = allAbstractMatches.get(rowMatch, "id")
+          if (!matchID.equals(abstrID)) {
+            amtchIRI = allAbstractMatches.get(rowMatch, "abstract")
+            if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+              aReport
+                .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
+            } else {
+              aReport
+                .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
+            }
+            aReport.addText("#")
+              .addLink("./abstract${matchID}.html", matchID)
+            matchTitle = allAbstractMatches.get(rowMatch, "title")
+            if (matchTitle.length() > 50) {
+              aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
+            } else {
+              aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
+            }
+            aReport
+              .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
+              .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
+              .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
+              .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
+              .addText(")")
+            guideID = allAbstractMatches.get(rowMatch, "guide")
+            if (guideID != null && guideID.trim().length() > 0) {
+              aReport.addText(" ")
+              guideID = guideID.trim()
+              if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+                aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
+              } else {
+                aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
+              }
+            }
+            aReport
+              .forceNewLine()
+          }
+        }
+        aReport.endIndent()
+      }
+    }
+    aReport.forceNewLine()
+  }
+
+  aReport
+    .startSubSubSection("Same species")
+  allSpeciesQuery = """
+    SELECT ?species WHERE {
+      <$abstrIRI> <http://example.org/NMSA17/onto/aboutSpecies> ?species
+    }
+  """
+  allSpecies = rdf.sparql(nmsaData, allSpeciesQuery)
+  if (allSpecies.rowCount > 0) {
+    for (species in allSpecies.getColumn("species")) {
+      label = owlapi.getLabel(ontologyObj, species)
+      if (label == null || label.trim().length() == 0) label = shorten(species)
+      allAbstractsForSpeciesQuery = """
+        SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
+          ?abstract <http://example.org/NMSA17/onto/aboutSpecies> <$species> ;
+            <http://purl.org/dc/terms/identifier> ?id ;
+            <http://purl.org/dc/terms/title> ?title ;
+            <http://example.org/NMSA17/onto/session> ?session ;
+            <http://example.org/NMSA17/onto/day> ?day ;
+            <http://example.org/NMSA17/onto/startTime> ?start ;
+            <http://example.org/NMSA17/onto/endTime> ?end .
+          OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
+        } ORDER BY ASC(?id)
+      """
+      allAbstractMatches = rdf.sparql(nmsaData, allAbstractsForSpeciesQuery)
+      if (allAbstractMatches.rowCount > 1) {
+        aReport.addText("Other abstracts about ")
+          .addText(labelSpecies(label), "BOLD").forceNewLine()
+          .startIndent()
+        for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
+          matchID = allAbstractMatches.get(rowMatch, "id")
+          if (!matchID.equals(abstrID)) {
+            amtchIRI = allAbstractMatches.get(rowMatch, "abstract")
+            if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+              aReport
+                .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
+            } else {
+              aReport
+                .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
+            }
+            aReport.addText("#")
+              .addLink("./abstract${matchID}.html", matchID)
+            matchTitle = allAbstractMatches.get(rowMatch, "title")
+            if (matchTitle.length() > 50) {
+              aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
+            } else {
+              aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
+            }
+            aReport
+              .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
+              .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
+              .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
+              .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
+              .addText(")")
+            guideID = allAbstractMatches.get(rowMatch, "guide")
+            if (guideID != null && guideID.trim().length() > 0) {
+              aReport.addText(" ")
+              guideID = guideID.trim()
+              if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+                aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
+              } else {
+                aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
+              }
+            }
+            aReport
+              .forceNewLine()
+          }
+        }
+        aReport.endIndent()
+      }
+    }
+    aReport.forceNewLine()
+  }
 
   html = report.asHTML(aReport)
   ui.append(outputFile, html)
 }
-
