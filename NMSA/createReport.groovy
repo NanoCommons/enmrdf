@@ -28,42 +28,38 @@ def shorten(iri) {
   return iri
 }
 
-def outputAbstractInfo(allAbstractMatches, rowMatch) {
-  matchID = allAbstractMatches.get(rowMatch, "id")
+def outputAbstractInfo(someReport, abstrID, matchID, matchIRI, session, matchTitle, day, start, end, guideID) {
   if (!matchID.equals(abstrID)) {
-    matchIRI = allAbstractMatches.get(rowMatch, "abstract")
-    if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-      aReport
+    if (session.contains("Poster")) {
+      someReport
         .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
     } else {
-      aReport
+      someReport
         .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
     }
-    aReport.addText("#")
+    someReport.addText("#")
       .addLink("./abstract${matchID}.html", matchID)
-    matchTitle = allAbstractMatches.get(rowMatch, "title")
     if (matchTitle.length() > 50) {
-      aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
+      someReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
     } else {
-      aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
+      someReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
     }
-    aReport
-      .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
-      .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
-      .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
-      .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
+    someReport
+      .addText(" ").addText(session)
+      .addText(" ").addText(day)
+      .addText(" (").addText(start)
+      .addText("-").addText(end)
       .addText(")")
-    guideID = allAbstractMatches.get(rowMatch, "guide")
     if (guideID != null && guideID.trim().length() > 0) {
-      aReport.addText(" ")
+      someReport.addText(" ")
       guideID = guideID.trim()
-      if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-        aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
+      if (session.contains("Poster")) {
+        someReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
       } else {
-        aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
+        someReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
       }
     }
-    aReport
+    someReport
       .forceNewLine()
   }
 }
@@ -108,32 +104,43 @@ ontologyObj = owlapi.load("/eNanoMapper/enanomapper.owl", mapper);
 
 
 
+
 // Now do the real reporting
 
 allAbstractsQuery = """
-SELECT ?abstract ?id ?title ?session ?start ?end WHERE {
+SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
   ?abstract a <http://edamontology.org/data_2849> ;
     <http://purl.org/dc/terms/identifier> ?id ;
     <http://purl.org/dc/terms/title> ?title ;
+    <http://example.org/NMSA17/onto/day> ?day ;
     <http://example.org/NMSA17/onto/session> ?session ;
     <http://example.org/NMSA17/onto/startTime> ?start ;
     <http://example.org/NMSA17/onto/endTime> ?end .
   OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
-}
+} ORDER BY ASC(?id)
 """
 
 abstracts = rdf.sparql(nmsaData, allAbstractsQuery)
 
+indexReport = report.createReport()
+  .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
+  .createHeader("","Index of Annotated Abstracts")
+  .startSection("All Annotated Abstracts")
+  .forceNewLine()
+
 for (row=1; row<=abstracts.rowCount; row++) {
   abstrID = abstracts.get(row, "id")
   abstrIRI = abstracts.get(row, "abstract")
+  abstrSession = abstracts.get(row, "session")
+  abstrTitle = abstracts.get(row, "title")
+  abstrDay = abstracts.get(row, "day")
+  abstrStart = abstracts.get(row, "start")
+  abstrEnd = abstracts.get(row, "end")
+  abstrGuideID = abstracts.get(row, "guide")
   outputFile = "/NMSA/reports/abstract${abstrID}.html"
-  if (ui.fileExists(outputFile)) ui.remove(outputFile)
+  outputAbstractInfo(indexReport, "forceNotMatch", abstrID, abstrIRI, abstrSession, abstrTitle, abstrDay, abstrStart, abstrEnd, abstrGuideID)
 
-  indexReport = report.createReport()
-    .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
-    .createHeader("","Index of Annotated Abstract")
-    .forceNewLine()
+  if (ui.fileExists(outputFile)) ui.remove(outputFile)
   aReport = report.createReport()
     .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
     .createHeader("","Recommendations based on Abstract $abstrID")
@@ -264,7 +271,15 @@ for (row=1; row<=abstracts.rowCount; row++) {
           .addText(label, "BOLD").forceNewLine()
           .startIndent()
         for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
-          outputAbstractInfo(allAbstractMatches, rowMatch)
+          matchID = allAbstractMatches.get(rowMatch, "id")
+          matchIRI = allAbstractMatches.get(rowMatch, "abstract")
+          session = allAbstractMatches.get(rowMatch, "session")
+          matchTitle = allAbstractMatches.get(rowMatch, "title")
+          day = allAbstractMatches.get(rowMatch, "day")
+          start = allAbstractMatches.get(rowMatch, "start")
+          end = allAbstractMatches.get(rowMatch, "end")
+          guideID = allAbstractMatches.get(rowMatch, "guide")
+          outputAbstractInfo(aReport, abstrID, matchID, matchIRI, session, matchTitle, day, start, end, guideID)
         }
         aReport.endIndent()
       }
@@ -302,7 +317,15 @@ for (row=1; row<=abstracts.rowCount; row++) {
           .addText(labelSpecies(label), "BOLD").forceNewLine()
           .startIndent()
         for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
-          outputAbstractInfo(allAbstractMatches, rowMatch)
+          matchID = allAbstractMatches.get(rowMatch, "id")
+          matchIRI = allAbstractMatches.get(rowMatch, "abstract")
+          session = allAbstractMatches.get(rowMatch, "session")
+          matchTitle = allAbstractMatches.get(rowMatch, "title")
+          day = allAbstractMatches.get(rowMatch, "day")
+          start = allAbstractMatches.get(rowMatch, "start")
+          end = allAbstractMatches.get(rowMatch, "end")
+          guideID = allAbstractMatches.get(rowMatch, "guide")
+          outputAbstractInfo(aReport, abstrID, matchID, matchIRI, session, matchTitle, day, start, end, guideID)
         }
         aReport.endIndent()
       }
@@ -315,4 +338,6 @@ for (row=1; row<=abstracts.rowCount; row++) {
 }
 
 html = report.asHTML(indexReport)
-ui.append(outputFile = "/NMSA/reports/index.html", html)
+outputFile = "/NMSA/reports/index.html"
+if (ui.fileExists(outputFile)) ui.remove(outputFile)
+ui.append(outputFile, html)
