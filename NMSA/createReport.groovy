@@ -28,6 +28,46 @@ def shorten(iri) {
   return iri
 }
 
+def outputAbstractInfo(allAbstractMatches, rowMatch) {
+  matchID = allAbstractMatches.get(rowMatch, "id")
+  if (!matchID.equals(abstrID)) {
+    matchIRI = allAbstractMatches.get(rowMatch, "abstract")
+    if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+      aReport
+        .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
+    } else {
+      aReport
+        .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
+    }
+    aReport.addText("#")
+      .addLink("./abstract${matchID}.html", matchID)
+    matchTitle = allAbstractMatches.get(rowMatch, "title")
+    if (matchTitle.length() > 50) {
+      aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
+    } else {
+      aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
+    }
+    aReport
+      .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
+      .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
+      .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
+      .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
+      .addText(")")
+    guideID = allAbstractMatches.get(rowMatch, "guide")
+    if (guideID != null && guideID.trim().length() > 0) {
+      aReport.addText(" ")
+      guideID = guideID.trim()
+      if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
+        aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
+      } else {
+        aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
+      }
+    }
+    aReport
+      .forceNewLine()
+  }
+}
+
 mapper = null; // initially no mapper
 
 def addImport(mapper, ontologyURI, ontologyFile) {
@@ -67,6 +107,7 @@ addImport(mapper, "http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl", "
 ontologyObj = owlapi.load("/eNanoMapper/enanomapper.owl", mapper);
 
 
+
 // Now do the real reporting
 
 allAbstractsQuery = """
@@ -89,6 +130,10 @@ for (row=1; row<=abstracts.rowCount; row++) {
   outputFile = "/NMSA/reports/abstract${abstrID}.html"
   if (ui.fileExists(outputFile)) ui.remove(outputFile)
 
+  indexReport = report.createReport()
+    .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
+    .createHeader("","Index of Annotated Abstract")
+    .forceNewLine()
   aReport = report.createReport()
     .addText("<img height=\"200\" src=\"http://www.nmsaconference.eu/_img/cabecera/!\" />")
     .createHeader("","Recommendations based on Abstract $abstrID")
@@ -219,43 +264,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
           .addText(label, "BOLD").forceNewLine()
           .startIndent()
         for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
-          matchID = allAbstractMatches.get(rowMatch, "id")
-          if (!matchID.equals(abstrID)) {
-            amtchIRI = allAbstractMatches.get(rowMatch, "abstract")
-            if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-              aReport
-                .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
-            } else {
-              aReport
-                .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
-            }
-            aReport.addText("#")
-              .addLink("./abstract${matchID}.html", matchID)
-            matchTitle = allAbstractMatches.get(rowMatch, "title")
-            if (matchTitle.length() > 50) {
-              aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
-            } else {
-              aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
-            }
-            aReport
-              .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
-              .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
-              .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
-              .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
-              .addText(")")
-            guideID = allAbstractMatches.get(rowMatch, "guide")
-            if (guideID != null && guideID.trim().length() > 0) {
-              aReport.addText(" ")
-              guideID = guideID.trim()
-              if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-                aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
-              } else {
-                aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
-              }
-            }
-            aReport
-              .forceNewLine()
-          }
+          outputAbstractInfo(allAbstractMatches, rowMatch)
         }
         aReport.endIndent()
       }
@@ -293,43 +302,7 @@ for (row=1; row<=abstracts.rowCount; row++) {
           .addText(labelSpecies(label), "BOLD").forceNewLine()
           .startIndent()
         for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
-          matchID = allAbstractMatches.get(rowMatch, "id")
-          if (!matchID.equals(abstrID)) {
-            amtchIRI = allAbstractMatches.get(rowMatch, "abstract")
-            if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-              aReport
-                .addText("<span width=\"40\" height=\"40\" style=\"background-color: navy; color: white\"><i>&nbsp;P&nbsp;</i></span> ")
-            } else {
-              aReport
-                .addText("<span width=\"40\" height=\"40\" style=\"background-color: darkred; color: white\"><i>&nbsp;O&nbsp;</i></span> ")
-            }
-            aReport.addText("#")
-              .addLink("./abstract${matchID}.html", matchID)
-            matchTitle = allAbstractMatches.get(rowMatch, "title")
-            if (matchTitle.length() > 50) {
-              aReport.addText(": ").addText(matchTitle.substring(0,47), "ITALIC").addText("...")
-            } else {
-              aReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
-            }
-            aReport
-              .addText(" ").addText(allAbstractMatches.get(rowMatch, "session"))
-              .addText(" ").addText(allAbstractMatches.get(rowMatch, "day"))
-              .addText(" (").addText(allAbstractMatches.get(rowMatch, "start"))
-              .addText("-").addText(allAbstractMatches.get(rowMatch, "end"))
-              .addText(")")
-            guideID = allAbstractMatches.get(rowMatch, "guide")
-            if (guideID != null && guideID.trim().length() > 0) {
-              aReport.addText(" ")
-              guideID = guideID.trim()
-              if (allAbstractMatches.get(rowMatch, "session").contains("Poster")) {
-                aReport.addLink("https://guidebook.com/guide/86999/poi/$guideID/", "Guidebook")
-              } else {
-                aReport.addLink("https://guidebook.com/guide/86999/event/$guideID/", "Guidebook")
-              }
-            }
-            aReport
-              .forceNewLine()
-          }
+          outputAbstractInfo(allAbstractMatches, rowMatch)
         }
         aReport.endIndent()
       }
@@ -340,3 +313,6 @@ for (row=1; row<=abstracts.rowCount; row++) {
   html = report.asHTML(aReport)
   ui.append(outputFile, html)
 }
+
+html = report.asHTML(indexReport)
+ui.append(outputFile = "/NMSA/reports/index.html", html)
