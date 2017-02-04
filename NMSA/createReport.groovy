@@ -103,8 +103,6 @@ addImport(mapper, "http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl", "
 ontologyObj = owlapi.load("/eNanoMapper/enanomapper.owl", mapper);
 
 
-
-
 // Now do the real reporting
 
 allAbstractsQuery = """
@@ -302,6 +300,52 @@ for (row=1; row<=abstracts.rowCount; row++) {
       allAbstractsForSpeciesQuery = """
         SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
           ?abstract <http://example.org/NMSA17/onto/aboutSpecies> <$species> ;
+            <http://purl.org/dc/terms/identifier> ?id ;
+            <http://purl.org/dc/terms/title> ?title ;
+            <http://example.org/NMSA17/onto/session> ?session ;
+            <http://example.org/NMSA17/onto/day> ?day ;
+            <http://example.org/NMSA17/onto/startTime> ?start ;
+            <http://example.org/NMSA17/onto/endTime> ?end .
+          OPTIONAL { ?abstract <http://example.org/NMSA17/onto/guidebookID> ?guide . }
+        } ORDER BY ASC(?id)
+      """
+      allAbstractMatches = rdf.sparql(nmsaData, allAbstractsForSpeciesQuery)
+      if (allAbstractMatches.rowCount > 1) {
+        aReport.addText("Other abstracts about ")
+          .addText(labelSpecies(label), "BOLD").forceNewLine()
+          .startIndent()
+        for (rowMatch=1; rowMatch<=allAbstractMatches.rowCount; rowMatch++) {
+          matchID = allAbstractMatches.get(rowMatch, "id")
+          matchIRI = allAbstractMatches.get(rowMatch, "abstract")
+          session = allAbstractMatches.get(rowMatch, "session")
+          matchTitle = allAbstractMatches.get(rowMatch, "title")
+          day = allAbstractMatches.get(rowMatch, "day")
+          start = allAbstractMatches.get(rowMatch, "start")
+          end = allAbstractMatches.get(rowMatch, "end")
+          guideID = allAbstractMatches.get(rowMatch, "guide")
+          outputAbstractInfo(aReport, abstrID, matchID, matchIRI, session, matchTitle, day, start, end, guideID)
+        }
+        aReport.endIndent()
+      }
+    }
+    aReport.forceNewLine()
+  }
+
+  aReport
+    .startSubSubSection("Same cell line")
+  allCellLinesQuery = """
+    SELECT ?cellline WHERE {
+      <$abstrIRI> <http://example.org/NMSA17/onto/withCellLine> ?cellline
+    }
+  """
+  allCellLines = rdf.sparql(nmsaData, allCellLinesQuery)
+  if (allCellLines.rowCount > 0) {
+    for (cellline in allCellLines.getColumn("cellline")) {
+      label = owlapi.getLabel(ontologyObj, cellline)
+      if (label == null || label.trim().length() == 0) label = shorten(cellline)
+      allAbstractsForSpeciesQuery = """
+        SELECT ?abstract ?id ?title ?day ?session ?start ?end ?guide WHERE {
+          ?abstract <http://example.org/NMSA17/onto/withCellLine> <$cellline> ;
             <http://purl.org/dc/terms/identifier> ?id ;
             <http://purl.org/dc/terms/title> ?title ;
             <http://example.org/NMSA17/onto/session> ?session ;
