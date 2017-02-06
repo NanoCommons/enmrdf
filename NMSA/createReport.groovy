@@ -45,12 +45,9 @@ def outputAbstractInfo(someReport, abstrID, matchID, matchIRI, session, matchTit
     } else {
       someReport.addText(": ").addText(matchTitle, "ITALIC").addText("...")
     }
-    someReport
-      .addText(" ").addText(session)
-      .addText(" ").addText(day)
-      .addText(" (").addText(start)
-      .addText("-").addText(end)
-      .addText(")")
+    if (session != null) someReport.addText(" ").addText(session)
+    if (day != null) someReport.addText(" ").addText(day)
+    if (start != null && end != null) someReport.addText(" (").addText(start).addText("-").addText(end).addText(")")
     if (guideID != null && guideID.trim().length() > 0) {
       someReport.addText(" ")
       guideID = guideID.trim()
