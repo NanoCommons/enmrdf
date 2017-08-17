@@ -22,7 +22,7 @@ A material:
         rdfs:label       "NM-400" ;
         npo:has_part     ex:NFYS16-M12_core ;
         obo:BFO_0000056  ex:NFYS16-M12_sizemg ;
-        dcterms:source   ex:NFYS16 ;
+        dcterms:source   etox:dataset ;
         dcterms:type     enm:ENM_9000081 .
 
 All materials are types (rdf:type) obo:CHEBI_59999 and have a name (rdfs:label).
