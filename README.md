@@ -61,15 +61,15 @@ SELECT ?enmMaterial ?linkout WHERE {
 }
 ```
 
-And similarly to get own:sameAs links:
+And similarly to get owl:sameAs links:
 
 ```sparql
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 CONSTRUCT {
-  ?enmMaterial owl:sameAs ?linkout
+  ?source owl:sameAs ?linkout
 } WHERE {
-  ?enmMaterial owl:sameAs ?linkout .
+  ?source owl:sameAs ?linkout .
   FILTER (REGEX(STR(?linkout), "doi.org"))
 }
 ```
