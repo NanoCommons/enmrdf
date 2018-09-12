@@ -77,7 +77,7 @@ nanomaterials = [
   ]
 ]
 
-
+materials = new java.util.HashMap()
 
 rdfType = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 rdfsLabel = "http://www.w3.org/2000/01/rdf-schema#label"
@@ -97,18 +97,34 @@ rdf.addPrefix(store, "void", voidNS)
 datasetIRI = "${etoxNS}dataset"
 rdf.addObjectProperty(store, datasetIRI, rdfType, "${voidNS}DataSet")
 rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
+rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
 
 counter = 0;
-new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLine { line ->
+new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
   fields = line.split("\t")
-  counter++;
-
-  // the next material
-  enmIRI = "${etoxNS}m$counter"
-  rdf.addObjectProperty(store, enmIRI, rdfType, chebi59999)
-
+  
   // the name
   name = fields[0]
+  // the supplier
+  supplier = fields[1]
+  // the diameter
+  diameter = fields[5]
+
+  // unique id
+  uniqueKey = name + supplier + diameter 
+
+  if (materials.containsKey(uniqueKey)) {
+    materialCounter = materials.get(uniqueKey)
+  } else {
+    counter++;
+    materialCounter = counter;
+    materials.put(uniqueKey, counter);
+  }
+
+  // the next material
+  enmIRI = "${etoxNS}m$materialCounter"
+  rdf.addObjectProperty(store, enmIRI, rdfType, chebi59999)
+
   rdf.addDataProperty(store, enmIRI, rdfsLabel, name)
 
   // the components (they all have a core)
@@ -138,8 +154,6 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2_Simpler.csv")).eachLi
     }
   }
   
-  // the diameter
-  diameter = fields[5]
   if (diameter && diameter != "N/A" && diameter != "(") {
     diameter = diameter.trim()
     assayIRI = "${enmIRI}_sizeAssay"
