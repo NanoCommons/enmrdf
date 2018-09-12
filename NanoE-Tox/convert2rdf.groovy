@@ -194,6 +194,44 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     }
   }
 
+  // the zeta potential
+  zp = fields[14].trim()
+  
+  if (zp && !zp.contains("N/A") &&  zp != "positive" && zp != "(") {
+    zp = zp.replace("mV","").trim()
+    assayIRI = "${enmIRI}_zpAssay"
+    measurementGroupIRI = "${enmIRI}_zpMeasurementGroup"
+    endpointIRI = "${enmIRI}_zpEndpoint"
+
+    // the assay
+    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1302")
+    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Zeta potential")
+    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+
+    // the measurement group
+    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+
+    // the endpoint
+    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+ 
+    zp = zp.replace(",", ".")
+    if (zp.substring(1).contains("-")) {
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+    } else if (zp.contains("±")) {
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+    } else if (zp.contains("<")) {
+    } else {
+      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+    }
+  }
+
+
 }
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
