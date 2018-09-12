@@ -183,7 +183,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       if (diameter.contains("-")) {
         rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
-      } else if (diameter.contains("±")) {
+      } else if (zp.contains("±")) {
+        rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
+        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
       } else {
         rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
