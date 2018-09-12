@@ -1,3 +1,4 @@
+
 outputFilename = "/NanoE-Tox/2190-4286-6-183-S2_Simpler.ttl"
 
 baoNS = "http://www.bioassayontology.org/bao#"
@@ -34,7 +35,7 @@ nanomaterials = [
   ],
   "CuO" : [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_1544",
-    core : [ label : "CuO", smiles : "[Cu]O" ]
+    core : [ label : "CuO", smiles : "[Cu]=O" ]
   ],
   "DWCNT" : [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_301",
