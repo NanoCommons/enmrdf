@@ -102,6 +102,7 @@ rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
 counter = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
   fields = line.split("\t")
+  newMaterial = false
   
   // the name
   name = fields[0]
@@ -116,6 +117,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   if (materials.containsKey(uniqueKey)) {
     materialCounter = materials.get(uniqueKey)
   } else {
+    newMaterial = true;
     counter++;
     materialCounter = counter;
     materials.put(uniqueKey, counter);
@@ -131,58 +133,60 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   coreIRI = "${enmIRI}_core"
   rdf.addObjectProperty(store, enmIRI, "${npoNS}has_part", coreIRI)
   rdf.addObjectProperty(store, coreIRI, rdfType, "${npoNS}NPO_1597")
-  
-  if (nanomaterials[name]) {
-    if (nanomaterials[name].iri) {
-      rdf.addObjectProperty(store, enmIRI, "${dctNS}type", nanomaterials[name].iri)
-    }
-    if (nanomaterials[name].core && nanomaterials[name].core.smiles) {
-      smilesIRI = "${coreIRI}_smiles"
-      rdf.addObjectProperty(store, coreIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
-      rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
-      rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].core.smiles)
-      rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].core.label)
-    }
-    if (nanomaterials[name].coating) {
-      coatingIRI = "${enmIRI}_coating"
-      rdf.addObjectProperty(store, enmIRI, "${npoNS}has_part", coatingIRI)
-      smilesIRI = "${coatingIRI}_smiles"
-      rdf.addObjectProperty(store, coatingIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
-      rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
-      rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].coating.smiles)
-      rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].coating.label)
-    }
-  }
-  
-  if (diameter && diameter != "N/A" && diameter != "(") {
-    diameter = diameter.trim()
-    assayIRI = "${enmIRI}_sizeAssay"
-    measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup"
-    endpointIRI = "${enmIRI}_sizeEndpoint"
 
-    // the assay
-    rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1539")
-    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter")
-    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+  if (newMaterial) {
+    if (nanomaterials[name]) {
+      if (nanomaterials[name].iri) {
+        rdf.addObjectProperty(store, enmIRI, "${dctNS}type", nanomaterials[name].iri)
+      }
+      if (nanomaterials[name].core && nanomaterials[name].core.smiles) {
+        smilesIRI = "${coreIRI}_smiles"
+        rdf.addObjectProperty(store, coreIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
+        rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
+        rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].core.smiles)
+        rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].core.label)
+      }
+      if (nanomaterials[name].coating) {
+        coatingIRI = "${enmIRI}_coating"
+        rdf.addObjectProperty(store, enmIRI, "${npoNS}has_part", coatingIRI)
+        smilesIRI = "${coatingIRI}_smiles"
+        rdf.addObjectProperty(store, coatingIRI, "${ssoNS}CHEMINF_000200", smilesIRI)
+        rdf.addObjectProperty(store, smilesIRI, rdfType, "${ssoNS}CHEMINF_000018")
+        rdf.addDataProperty(store, smilesIRI, "${ssoNS}SIO_000300", nanomaterials[name].coating.smiles)
+        rdf.addDataProperty(store, smilesIRI, rdfsLabel, nanomaterials[name].coating.label)
+      }
+    }
 
-    // the measurement group
-    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
-    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+    if (diameter && diameter != "N/A" && diameter != "(") {
+      diameter = diameter.trim()
+      assayIRI = "${enmIRI}_sizeAssay"
+      measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup"
+      endpointIRI = "${enmIRI}_sizeEndpoint"
 
-    // the endpoint
-    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+      // the assay
+      rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1539")
+      rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter")
+      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+
+      // the measurement group
+      rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+      rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+
+      // the endpoint
+      rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+      rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
+      rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
-    if (diameter.contains("-")) {
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
-    } else if (diameter.contains("±")) {
-    } else if (diameter.contains("<")) {
-    } else {
-      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+      if (diameter.contains("-")) {
+        rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
+        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+      } else if (diameter.contains("±")) {
+      } else if (diameter.contains("<")) {
+      } else {
+        rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
+        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+      }
     }
   }
 
