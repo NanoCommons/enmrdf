@@ -159,6 +159,8 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
     if (diameter && diameter != "N/A" && diameter != "(") {
       diameter = diameter.trim()
+      diameter = diameter.replace(",", ".")
+      
       assayIRI = "${enmIRI}_sizeAssay"
       measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup"
       endpointIRI = "${enmIRI}_sizeEndpoint"
