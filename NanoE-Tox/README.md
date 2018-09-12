@@ -9,8 +9,9 @@ Convertion to ENMRDF
 ====================
 
 This folder contains a Bioclipse script to convert the content from the database
-into ENMRDF. The Excel spreadsheet was first adapted by removing all newlines and
-was then exported as a TSV file. Of this file, four header rows were removed,
+into ENMRDF. The Excel spreadsheet was first adapted by removing all newlines
+(global Find/Replace on '\n') and was then exported as a TSV file (no quoted field,
+TAB separator). Of this file, four header rows were removed,
 creating a TSV file without any headers and just data.
 
 That file is the input of the script.
