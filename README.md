@@ -1,5 +1,4 @@
-ENMRDF Collection
-=================
+# ENMRDF Collection
 
 Collection of Turtle files with RDF in the standard eNanoMapper format.
 
@@ -8,17 +7,18 @@ Pull requests welcome, questions too.
 Copyright/License/Waiver: [CCZero](https://creativecommons.org/choose/zero/)
 
 
-RDF Structures
-==============
+## RDF Structures
 
-A dataset:
+### A dataset 
+
+A dataset is of type `void:DataSet` and has a title at this moment.
 
 ```turtle
 etox:dataset  a    void:DataSet ;
       dct:title    "NanoE-Tox RDF" .
 ```
 
-A material:
+### A material
 
 ```turtle
 ex:NFYS16-M12  a     obo:CHEBI_59999 ;
@@ -32,10 +32,15 @@ ex:NFYS16-M12  a     obo:CHEBI_59999 ;
 All materials are types (rdf:type) [obo:CHEBI_59999](http://bioportal.bioontology.org/ontologies/ENM/?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_59999&jump_to_nav=true) and have a name (rdfs:label).
 Structure information is linked via the npo:has_part predicate and experimental
 measurements (physchem, toxicity, eco, application) is linked via the
-obo:BFO_0000056 predicate. A classification of the nanomaterial can be provided
-with the dcterms:type predicate and an entry from the [eNanoMapper ontology](http://bioportal.bioontology.org/ontologies/ENM/).
+`obo:BFO_0000056` predicate. A classification of the nanomaterial can be provided
+with the `dcterms:type` predicate and an entry from the [eNanoMapper ontology](http://bioportal.bioontology.org/ontologies/ENM/).
 
-The components:
+#### The chemical composition
+
+The chemical composition of the nanomaterial is encoded by linking material components
+to the nanomaterial, as was done in the above nanomaterial description with the
+`npo:has_part` predicate. The components itself all need a unique IRI and
+are encoded like this:
 
 ```turtle
 ex:NFYS16-M12_core
@@ -47,8 +52,7 @@ ex:NFYS16-M12_core_smiles
     sso:SIO_000300  "[C]" .
 ```
 
-Example SPARQL queries
-======================
+## Example SPARQL queries
 
 Get links out to Sigma-Aldrich:
 
