@@ -104,6 +104,9 @@ ex:NFYS16-M13_core  a       npo:NPO_1888 ;
         sso:CHEMINF_000200  ex:NFYS16-M13_core_smi .
 
 ex:NFYS16  a           void:Dataset ;
+        dcterms:description "Data extracted from abstracts from the 2nd NanoSafety Forum for Young Scientists Data." ;
+        dcterms:publisher "Egon Willighagen" ;
+        dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
         dcterms:title  "2nd NanoSafety Forum for Young Scientists Data" .
 
 ex:NFYS16-M9  a          obo:CHEBI_59999 ;
