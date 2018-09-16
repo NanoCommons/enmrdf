@@ -194,6 +194,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       // the endpoint
       rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+      rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Diameter")
  
       if (diameter.contains("-") || diameter.contains("–")) {
         diameter = diameter.replace("–","-")
@@ -239,6 +240,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     // the endpoint
     rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+    rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Zeta potential")
  
     zp = zp.replace(",", ".")
     zp = zp.replace("ca", "").trim()
@@ -289,6 +291,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     // the endpoint
     rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+    rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Surface Area")
  
     prop = prop.replace(",", ".")
     if (prop.substring(1).contains("-") || prop.contains("–")) {
@@ -392,6 +395,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       // the endpoint
       rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179") // 179 = endpoint
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+      rdf.addDataProperty(store, endpointIRI, rdfsLabel, toxtype)
  
       prop = prop.replace(",", ".")
       if (prop.substring(1).contains("-")) {
