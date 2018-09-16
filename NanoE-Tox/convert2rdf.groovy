@@ -112,6 +112,7 @@ rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
 rdf.addObjectProperty(store, datasetIRI, "${dctNS}license", "https://creativecommons.org/licenses/by/4.0/")
 
 counter = 0;
+assayCount = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
   fields = line.split("\t")
   newMaterial = false
@@ -173,8 +174,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       diameter = diameter.trim()
       diameter = diameter.replace(",", ".")
       
-      assayIRI = "${enmIRI}_sizeAssay"
-      measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup"
+      assayCount++;
+      assayIRI = "${enmIRI}_sizeAssay" + assayCount
+      measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup" + assayCount
       endpointIRI = "${enmIRI}_sizeEndpoint"
 
       // the assay
@@ -216,8 +218,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   
   if (zp && !zp.contains("N/A") &&  zp != "positive" && zp != "(") {
     zp = zp.replace("mV","").trim()
-    assayIRI = "${enmIRI}_zpAssay"
-    measurementGroupIRI = "${enmIRI}_zpMeasurementGroup"
+    assayCount++
+    assayIRI = "${enmIRI}_zpAssay" + assayCount
+    measurementGroupIRI = "${enmIRI}_zpMeasurementGroup" + assayCount
     endpointIRI = "${enmIRI}_zpEndpoint"
 
     // the assay
