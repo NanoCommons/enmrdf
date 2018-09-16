@@ -177,7 +177,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       assayCount++;
       assayIRI = "${enmIRI}_sizeAssay" + assayCount
       measurementGroupIRI = "${enmIRI}_sizeMeasurementGroup" + assayCount
-      endpointIRI = "${enmIRI}_sizeEndpoint"
+      endpointIRI = "${measurementGroupIRI}_sizeEndpoint"
 
       // the assay
       rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
@@ -191,7 +191,6 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
       // the endpoint
       rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
-      rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
       if (diameter.contains("-")) {
@@ -200,15 +199,15 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
           diameter = excelCorrections.get(diameter.trim().toLowerCase())
           // println(diameter)
         }
-        rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
-        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("±")) {
-        rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
-        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
       } else {
-        rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
-        rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
+        rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       }
     }
   }
@@ -222,7 +221,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     assayCount++
     assayIRI = "${enmIRI}_zpAssay" + assayCount
     measurementGroupIRI = "${enmIRI}_zpMeasurementGroup" + assayCount
-    endpointIRI = "${enmIRI}_zpEndpoint"
+    endpointIRI = "${measurementGroupIRI}_zpEndpoint"
 
     // the assay
     rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1302")
@@ -235,7 +234,6 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
     // the endpoint
     rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
     zp = zp.replace(",", ".")
@@ -246,19 +244,19 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         zp = excelCorrections.get(zp.trim().toLowerCase())
         // println(zp)
       }
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
     } else if (zp.contains("...")) {
       zp = zp.replace("...","-")
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
     } else if (zp.contains("±")) {
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
     } else if (zp.contains("<")) {
     } else {
-      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+      rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
     }
   }
 
@@ -272,7 +270,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     assayCount++
     assayIRI = "${enmIRI}_saAssay" + assayCount
     measurementGroupIRI = "${enmIRI}_saMeasurementGroup" + assayCount
-    endpointIRI = "${enmIRI}_saEndpoint"
+    endpointIRI = "${measurementGroupIRI}_saEndpoint"
 
     // the assay
     rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1235")
@@ -285,20 +283,19 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
     // the endpoint
     rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
     prop = prop.replace(",", ".")
     if (prop.substring(1).contains("-")) {
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
     } else if (prop.contains("±")) {
-      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
     } else if (prop.contains("<")) {
     } else {
-      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
-      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+      rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
+      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
     }
   }
 
