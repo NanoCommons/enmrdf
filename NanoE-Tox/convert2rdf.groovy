@@ -113,6 +113,7 @@ rdf.addObjectProperty(store, datasetIRI, "${dctNS}license", "https://creativecom
 
 counter = 0;
 assayCount = 0;
+toxCount = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
   fields = line.split("\t")
   newMaterial = false
@@ -299,6 +300,108 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     }
   }
 
+  // the toxicology
+  toxtype = fields[22].trim()
+  prop = fields[23].trim()
+
+  recognizedToxicities = [
+    "EC10": "http://www.bioassayontology.org/bao#BAO_0001263",
+    "EC20": "http://www.bioassayontology.org/bao#BAO_0001235",
+    "EC25": "http://www.bioassayontology.org/bao#BAO_0001264",
+    "EC30": "http://www.bioassayontology.org/bao#BAO_0000599",
+    "EC50": "http://www.bioassayontology.org/bao#BAO_0000188",
+    "EC80": "http://purl.enanomapper.org/onto/ENM_0000053",
+    "EC90": "http://www.bioassayontology.org/bao#BAO_0001237",
+    "IC50": "http://www.bioassayontology.org/bao#BAO_0000190",
+    "LC50": "http://www.bioassayontology.org/bao#BAO_0002145",
+    "MIC":  "http://www.bioassayontology.org/bao#BAO_0002146",
+    "NOEC": "http://purl.enanomapper.org/onto/ENM_0000060",
+    "NOEL": "http://purl.enanomapper.org/onto/ENM_0000056"
+  ]  
+
+  recognizedUnits = [
+    "g/L": "g/L",
+    "g/l": "g/l",
+    "mg/L": "mg/L",
+    "mg/ml": "mg/ml",
+    "mg/mL": "mg/mL",
+    "µg/L of food": "µg/L",
+    "µg/L": "µg/L",
+    "µg/mL": "µg/mL",
+    "mg Ag/L": "mg/L",
+    "mg Cu/L": "mg/L",
+    "mg Zn/L": "mg/L",
+    "µg dissolved Cu/L": "µg/L",
+    "µg dissolved Zn/L": "µg/L",
+    "µg Ag/L": "µg/L",
+    "fmol/L": "fmol/L",
+    
+    "mmol/g": "mmol/g",
+    "nmol/g fresh weight": "nmol/g",
+    "µg Cu/g": "µg/g",
+    "mg Ag/kg": "mg/kg",
+    "mg Zn/kg": "mg/kg",
+    "mg Zn/kg  d.w.": "mg/kg",
+    "mg/kg of dry feed": "mg/kg", 
+    "mg/kg": "mg/kg",
+    "g/kg": "g/kg",
+    "µg/g dry weight sediment": "µg/g", 
+    "µg/g": "µg/g"
+  ]
+
+  if (toxtype && prop && !prop.contains("N/A") && !prop.contains("%") && !prop.contains(">") && !prop.contains("(")) {
+    units = "mg/L"
+    for (unit in recognizedUnits.keySet()) {
+      if (prop.contains(unit)) {
+        units = "µg/L";
+        prop = prop.replace(unit,"");
+      }
+    }
+    prop = prop.trim()
+    
+    if (!recognizedToxicities.containsKey(toxtype)) {
+      // println "Unrecognized TOX endpoint: $toxtype"
+    } else if (prop.contains("/")) {
+      println "Unrecognized TOX unit: $prop"
+    } else {
+      recogType = recognizedToxicities.get(toxtype)
+    
+      // ok,recognized
+      assayCount++
+      toxCount++
+      assayTypeCode = toxtype.toLowerCase();
+      assayIRI = "${enmIRI}_${assayTypeCode}Assay" + assayCount
+      measurementGroupIRI = "${enmIRI}_${assayTypeCode}MeasurementGroup" + assayCount
+      endpointIRI = "${measurementGroupIRI}_${assayTypeCode}Endpoint"
+
+      // the assay
+      rdf.addObjectProperty(store, assayIRI, rdfType, recogType)
+      rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
+      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+
+      // the measurement group
+      rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+      rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+
+      // the endpoint
+      rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179") // 179 = endpoint
+      rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+ 
+      prop = prop.replace(",", ".")
+      if (prop.substring(1).contains("-")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      } else if (prop.contains("±")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      } else if (prop.contains("<")) {
+      } else {
+        rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      }
+    }
+  }
+
 }
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
@@ -307,5 +410,6 @@ output = ui.newFile(outputFilename, rdf.asTurtle(store) )
 
 println "Materials: $materialCounter"
 println "Assays: $assayCount"
+println "  of which TOX: $toxCount"
 
 
