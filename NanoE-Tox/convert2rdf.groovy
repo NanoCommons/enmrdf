@@ -12,6 +12,18 @@ ssoNS = "http://semanticscience.org/resource/"
 voidNS = "http://rdfs.org/ns/void#"
 xsdNS = "http://www.w3.org/2001/XMLSchema#"
 
+excelCorrections = [
+  "01-feb": "1-2",
+  "01-mrt": "1-3",
+  "02-mei": "2-5",
+  "03-aug": "3-8",
+  "01-okt": "1-10",
+  "02-okt": "2-10",
+  "04-okt": "4-10",
+  "05-okt": "5-10",
+  "08-okt": "8-10"
+]
+
 nanomaterials = [
   "Ag" : [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_1384",
@@ -181,6 +193,11 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
       if (diameter.contains("-")) {
+        if (excelCorrections.containsKey(diameter.trim().toLowerCase())) {
+          // print("Replaced " + diameter + " with ")
+          diameter = excelCorrections.get(diameter.trim().toLowerCase())
+          // println(diameter)
+        }
         rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
       } else if (zp.contains("±")) {
@@ -219,6 +236,15 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
  
     zp = zp.replace(",", ".")
     if (zp.substring(1).contains("-")) {
+      if (excelCorrections.containsKey(zp.trim().toLowerCase())) {
+        // print("Replaced " + zp + " with ")
+        zp = excelCorrections.get(zp.trim().toLowerCase())
+        // println(zp)
+      }
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
+    } else if (zp.contains("...")) {
+      zp = zp.replace("...","-")
       rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
       rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "mV")
     } else if (zp.contains("±")) {
