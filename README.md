@@ -33,7 +33,10 @@ A dataset is of type `void:DataSet` and has a title at this moment.
 
 ```turtle
 etox:dataset  a    void:DataSet ;
-      dct:title    "NanoE-Tox RDF" .
+    dct:title    "NanoE-Tox RDF" .
+    dct:description  "RDF version of the data from Beilstein J. Nanotechnol. 2015, 6, 1788–1804. doi:10.3762/bjnano.6.183." ;
+    dct:license      <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:publisher    "Egon Willighagen" .
 ```
 
 ### A material
