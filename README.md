@@ -9,6 +9,24 @@ Copyright/License/Waiver: [CCZero](https://creativecommons.org/choose/zero/)
 
 ## RDF Structures
 
+In the below examples, the following general prefixes are used:
+
+```turtle
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix enm:   <http://purl.enanomapper.org/onto/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix npo:   <http://purl.bioontology.org/ontology/npo#> .
+@prefix sso:   <http://semanticscience.org/resource/> .
+@prefix bao:   <http://www.bioassayontology.org/bao#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix etox:  <http://egonw.github.com/enmrdf/nanoe-tox/> .
+@prefix obo:   <http://purl.obolibrary.org/obo/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+```
+
 ### A dataset 
 
 A dataset is of type `void:DataSet` and has a title at this moment.
