@@ -185,6 +185,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1539")
       rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter")
       rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
       // the measurement group
       rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
