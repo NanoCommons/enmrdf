@@ -170,7 +170,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       }
     }
 
-    if (diameter && diameter != "N/A" && diameter != "(") {
+    if (diameter && !diameter.contains("N/A") && !diameter.contains("(")) {
       diameter = diameter.trim()
       diameter = diameter.replace(",", ".")
       
@@ -202,7 +202,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         }
         rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
-      } else if (zp.contains("±")) {
+      } else if (diameter.contains("±")) {
         rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
@@ -216,7 +216,8 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   // the zeta potential
   zp = fields[14].trim()
   
-  if (zp && !zp.contains("N/A") &&  zp != "positive" && zp != "(") {
+  if (zp && !zp.contains("N/A") &&  zp != "positive" && !zp.contains("(") && !zp.contains("at") &&
+      !zp.contains("-------------------")) {
     zp = zp.replace("mV","").trim()
     assayCount++
     assayIRI = "${enmIRI}_zpAssay" + assayCount
@@ -238,6 +239,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
     zp = zp.replace(",", ".")
+    zp = zp.replace("ca", "").trim()
     if (zp.substring(1).contains("-")) {
       if (excelCorrections.containsKey(zp.trim().toLowerCase())) {
         // print("Replaced " + zp + " with ")
