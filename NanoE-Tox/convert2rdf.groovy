@@ -262,6 +262,45 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     }
   }
 
+  // the surface areas
+  prop = fields[8].trim()
+  
+  if (prop && !prop.contains("N/A") && !prop.contains("(") && !prop.contains(">") && !prop.contains("<")) {
+    units = "m2/g"
+    if (prop.contains("nm2")) units = "nm2"
+    prop = prop.replace("m2/g","").replace("nm2","").trim()
+    assayCount++
+    assayIRI = "${enmIRI}_saAssay" + assayCount
+    measurementGroupIRI = "${enmIRI}_saMeasurementGroup" + assayCount
+    endpointIRI = "${enmIRI}_saEndpoint"
+
+    // the assay
+    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1235")
+    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Surface Area")
+    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+
+    // the measurement group
+    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+
+    // the endpoint
+    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}OBI_0000299", endpointIRI)
+    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+ 
+    prop = prop.replace(",", ".")
+    if (prop.substring(1).contains("-")) {
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+    } else if (prop.contains("±")) {
+      rdf.addTypedDataProperty(store, assayIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+    } else if (prop.contains("<")) {
+    } else {
+      rdf.addTypedDataProperty(store, assayIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
+      rdf.addDataProperty(store, assayIRI, "${ssoNS}has-unit", units)
+    }
+  }
 
 }
 
