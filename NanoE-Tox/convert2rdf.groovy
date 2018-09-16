@@ -181,10 +181,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       endpointIRI = "${measurementGroupIRI}_sizeEndpoint"
 
       // the assay
-      rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-      rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1539")
-      rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter")
-      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Diameter Assay")
+      // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
       rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
       // the measurement group
@@ -192,7 +191,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
 
       // the endpoint
-      rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+      rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1539")
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
       rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Diameter")
  
@@ -228,9 +227,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     endpointIRI = "${measurementGroupIRI}_zpEndpoint"
 
     // the assay
-    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1302")
-    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Zeta potential")
-    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+    // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+    // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Zeta potential")
+    // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
     rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
     // the measurement group
@@ -238,7 +237,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
 
     // the endpoint
-    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+    rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1302")
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
     rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Zeta potential")
  
@@ -279,9 +278,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     endpointIRI = "${measurementGroupIRI}_saEndpoint"
 
     // the assay
-    rdf.addObjectProperty(store, assayIRI, rdfType, "${npoNS}NPO_1235")
-    rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Surface Area")
-    rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+    // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+    // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Surface Area")
+    // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
     rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
     // the measurement group
@@ -289,7 +288,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
 
     // the endpoint
-    rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
+    rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1235")
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
     rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Surface Area")
  
@@ -383,9 +382,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       endpointIRI = "${measurementGroupIRI}_${assayTypeCode}Endpoint"
 
       // the assay
-      rdf.addObjectProperty(store, assayIRI, rdfType, recogType)
-      rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
-      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      // rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
+      // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
       rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
       // the measurement group
@@ -393,7 +392,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
 
       // the endpoint
-      rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179") // 179 = endpoint
+      rdf.addObjectProperty(store, endpointIRI, rdfType, recogType)
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
       rdf.addDataProperty(store, endpointIRI, rdfsLabel, toxtype)
  
