@@ -172,8 +172,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     }
 
     if (diameter && !diameter.contains("N/A") && !diameter.contains("(")) {
-      diameter = diameter.trim()
       diameter = diameter.replace(",", ".")
+                         .replace("~", "")
+                         .trim()
       
       assayCount++;
       assayIRI = "${enmIRI}_sizeAssay" + assayCount
@@ -208,6 +209,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
+      } else if (diameter.contains(";")) {
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
@@ -217,6 +219,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
   // the zeta potential
   zp = fields[14].trim()
+  zp = zp.replace("−", "-")
   
   if (zp && !zp.contains("N/A") &&  zp != "positive" && !zp.contains("(") && !zp.contains("at") &&
       !zp.contains("-------------------")) {
@@ -243,6 +246,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
  
     zp = zp.replace(",", ".")
     zp = zp.replace("ca", "").trim()
+    zp = zp.replace("- 51.6", "-51.6").trim()
     if (zp.substring(1).contains("-")) {
       if (excelCorrections.containsKey(zp.trim().toLowerCase())) {
         // print("Replaced " + zp + " with ")
@@ -327,8 +331,6 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   ]  
 
   recognizedUnits = [
-    "g/L": "g/L",
-    "g/l": "g/l",
     "mg/L": "mg/L",
     "mg/ml": "mg/ml",
     "mg/mL": "mg/mL",
@@ -338,10 +340,18 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     "mg Ag/L": "mg/L",
     "mg Cu/L": "mg/L",
     "mg Zn/L": "mg/L",
+    "µg dissolved Ag/L": "µg/L",
     "µg dissolved Cu/L": "µg/L",
     "µg dissolved Zn/L": "µg/L",
     "µg Ag/L": "µg/L",
     "fmol/L": "fmol/L",
+    "g/L": "g/L",
+    "g/l": "g/l",
+    
+    "nM": "nM",
+    "mM": "mM",
+    "µM": "µM",
+    "ppm": "ppm",
     
     "mmol/g": "mmol/g",
     "nmol/g fresh weight": "nmol/g",
@@ -351,12 +361,13 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     "mg Zn/kg  d.w.": "mg/kg",
     "mg/kg of dry feed": "mg/kg", 
     "mg/kg": "mg/kg",
-    "g/kg": "g/kg",
     "µg/g dry weight sediment": "µg/g", 
-    "µg/g": "µg/g"
+    "µg/g": "µg/g",
+    "g/kg": "g/kg"
   ]
 
-  if (toxtype && prop && !prop.contains("N/A") && !prop.contains("%") && !prop.contains(">") && !prop.contains("(")) {
+  if (toxtype && prop && !prop.contains("N/A") && !prop.contains("%") &&
+      !prop.contains(">") && !prop.contains("(") && !prop.contains("≤")) {
     units = "mg/L"
     for (unit in recognizedUnits.keySet()) {
       if (prop.contains(unit)) {
@@ -364,7 +375,11 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         prop = prop.replace(unit,"");
       }
     }
-    prop = prop.trim()
+    prop = prop.replace("~","")
+               .replace("d.w.", "")
+               .replace("dry food", "")
+               .replace("of food", "")
+               .trim()
     
     if (!recognizedToxicities.containsKey(toxtype)) {
       // println "Unrecognized TOX endpoint: $toxtype"
@@ -397,6 +412,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addDataProperty(store, endpointIRI, rdfsLabel, toxtype)
  
       prop = prop.replace(",", ".")
+                 .replace("...","-")
+                 .replace(" ","")
+                 .trim()
       if (prop.substring(1).contains("-")) {
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
@@ -404,6 +422,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
       } else if (prop.contains("<")) {
+      } else if (prop.contains(";")) {
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
