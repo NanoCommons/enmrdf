@@ -50,7 +50,7 @@ ex:NFYS16-M12  a     obo:CHEBI_59999 ;
     dcterms:type     enm:ENM_9000081 .
 ```
 
-All materials are types (rdf:type) [obo:CHEBI_59999](http://bioportal.bioontology.org/ontologies/ENM/?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_59999&jump_to_nav=true) and have a name (rdfs:label).
+All materials are types (`rdf:type`) [obo:CHEBI_59999](http://bioportal.bioontology.org/ontologies/ENM/?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_59999&jump_to_nav=true) and have a name (`rdfs:label`).
 Structure information is linked via the npo:has_part predicate and experimental
 measurements (physchem, toxicity, eco, application) is linked via the
 `obo:BFO_0000056` predicate. A classification of the nanomaterial can be provided
