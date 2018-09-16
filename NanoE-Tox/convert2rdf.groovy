@@ -109,7 +109,7 @@ rdf.addPrefix(store, "void", voidNS)
 datasetIRI = "${etoxNS}dataset"
 rdf.addObjectProperty(store, datasetIRI, rdfType, "${voidNS}DataSet")
 rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
-rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
+rdf.addObjectProperty(store, datasetIRI, "${dctNS}license", "https://creativecommons.org/licenses/by/4.0/")
 
 counter = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
