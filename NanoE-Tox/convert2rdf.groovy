@@ -195,7 +195,8 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, endpointIRI, rdfType, "${baoNS}BAO_0000179")
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
-      if (diameter.contains("-")) {
+      if (diameter.contains("-") || diameter.contains("–")) {
+        diameter = diameter.replace("–","-")
         if (excelCorrections.containsKey(diameter.trim().toLowerCase())) {
           // print("Replaced " + diameter + " with ")
           diameter = excelCorrections.get(diameter.trim().toLowerCase())
@@ -288,7 +289,8 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
  
     prop = prop.replace(",", ".")
-    if (prop.substring(1).contains("-")) {
+    if (prop.substring(1).contains("-") || prop.contains("–")) {
+      prop = prop.replace("–","-")
       rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
       rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
     } else if (prop.contains("±")) {
