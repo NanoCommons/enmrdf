@@ -306,4 +306,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
 output = ui.newFile(outputFilename, rdf.asTurtle(store) )
-ui.open(output)
+// ui.open(output)
+
+println "Materials: $materialCounter"
+println "Assays: $assayCount"
+
+
