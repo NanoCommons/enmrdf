@@ -1,0 +1,55 @@
+PREFIX : <http://example.org/>
+prefix bao:   <http://www.bioassayontology.org/bao#>
+prefix cito:  <http://purl.org/net/cito/>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix foaf:  <http://xmlns.com/foaf/0.1/>
+prefix npo:   <http://purl.bioontology.org/ontology/npo#>
+prefix obo:   <http://purl.obolibrary.org/obo/>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+prefix sso:   <http://semanticscience.org/resource/>
+prefix void:  <http://rdfs.org/ns/void#>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+<Substance> {
+  rdf:type [obo:CHEBI_59999],
+  rdfs:label xsd:string,
+  foaf:page IRI?,
+  dcterms:source @<Dataset>?,
+  npo:has_part @<Component>+,
+  obo:BFO_0000056 @<MeasurementGroup>+,
+  dcterms:type IRI
+}
+
+<MeasurementGroup> {
+  rdf:type [obo:BAO_0000040],
+  obo:OBI_0000299  @<EndPoint>
+
+}
+
+<EndPoint> {
+  rdf:type [bao:BAO_0000179],
+  rdfs:label xsd:string,
+  cito:usesDataFrom IRI?,
+  sso:has-unit xsd:string,
+  sso:has-value xsd:string
+}
+
+<Dataset> {
+  rdf:type [void:Dataset],
+  dcterms:license IRI,
+  dcterms:publisher xsd:string,
+  dcterms:title xsd:string,
+  dcterms:description xsd:string
+}
+
+<Component> {
+  rdf:type IRI,
+  sso:CHEMINF_000200 @<Property>?
+}
+
+<Property> {
+  rdf:type IRI,
+  rdfs:label xsd:string?,
+  sso:SIO_000300 xsd:string
+}
