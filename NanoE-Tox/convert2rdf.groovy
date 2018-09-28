@@ -276,6 +276,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       } else if (diameter.contains("±")) {
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
+      } else if (diameter.trim().startsWith("<")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", "1-$diameter", "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
         logMessages += "Unrecognized diameter value: $diameter \n"
       } else if (diameter.contains(";")) {
@@ -332,6 +335,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
       } else if (zp.contains("<")) {
+        logMessages += "Unrecognized zeta potential value: $zp \n"
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
@@ -374,6 +378,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
       } else if (prop.contains("<")) {
+        logMessages += "Unrecognized property value: $prop \n"
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
@@ -497,7 +502,11 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       } else if (prop.contains("±")) {
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      } else if (prop.trim().startsWith("<")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", "0-$prop", "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
       } else if (prop.contains("<")) {
+        logMessages += "Unrecognized tox value: $prop \n"
       } else if (prop.contains(";")) {
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
