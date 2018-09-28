@@ -67,6 +67,34 @@ literature = [
     title: "Fate and Effects of CeO2 Nanoparticles in Aquatic Ecotoxicity Tests",
     doi: "10.1021/es9002444"
   ],
+  "art11": [
+    title: "Acute toxicity of Ag and CuO nanoparticle suspensions against Daphnia magna",
+    doi: "10.1016/j.jhazmat.2012.05.066"
+  ],
+  "art12": [
+    title: "Toxicity of two types of silver nanoparticles to aquatic crustaceans Daphnia magna and Thamnocephalus platyurus",
+    doi: "10.1007/s11356-012-1290-5"
+  ],
+  "art13": [
+    title: "Qualitative toxicity assessment of silver nanoparticles on the fresh water bacterial isolates and consortium at low level of exposure concentration",
+    doi: "10.1016/j.ecoenv.2014.05.033"
+  ],
+  "art14": [
+    title: "Physicochemical Characterization and Ecotoxicological Assessment of CeO2 Nanoparticles Using Two Aquatic Microorganisms",
+    doi: "10.1093/toxsci/kfq311"
+  ],
+  "art15": [
+    title: "Ecotoxicity of nanoparticles of CuO and ZnO in natural water",
+    doi: "10.1016/j.envpol.2009.08.017"
+  ],
+  "art16": [
+    title: "The effect of humic acids on the cytotoxicity of silver nanoparticles to a natural aquatic bacterial assemblage",
+    doi: "10.1016/j.scitotenv.2010.08.030"
+  ],
+  "art17": [
+    title: "Acute and chronic effects of nano- and non-nano-scale TiO2 and ZnO particles on mobility and reproduction of the freshwater invertebrate Daphnia magna",
+    doi: "10.1016/j.chemosphere.2009.06.025"
+  ],
   "artXX": [
     title: "XXXX",
     doi: ""
@@ -165,6 +193,7 @@ rdf.addObjectProperty(store, datasetIRI, "${dctNS}license", "https://creativecom
 counter = 0;
 assayCount = 0;
 toxCount = 0;
+citations = 0;
 new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { line ->
   fields = line.split("\t")
   newMaterial = false
@@ -480,6 +509,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       if (doi != null) {
         articleIRI = "https://doi.org/${doi}"
         rdf.addObjectProperty(store, assayIRI, "${dctNS}source", articleIRI)
+        citations++
       }
       rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
@@ -528,5 +558,6 @@ output = ui.newFile(outputFilename, rdf.asTurtle(store) )
 println "Materials: $materialCounter"
 println "Assays: $assayCount"
 println "  of which TOX: $toxCount"
+println "Citations: $citations"
 
 
