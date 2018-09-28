@@ -1,5 +1,7 @@
 
 outputFilename = "/NanoE-Tox/2190-4286-6-183-S2_Simpler.ttl"
+logFilename = "/NanoE-Tox/conversion.log"
+logMessages = ""
 
 baoNS = "http://www.bioassayontology.org/bao#"
 dcNS = "http://purl.org/dc/elements/1.1/"
@@ -107,8 +109,10 @@ rdf.addPrefix(store, "sso", ssoNS)
 rdf.addPrefix(store, "void", voidNS)
 
 datasetIRI = "${etoxNS}dataset"
-rdf.addObjectProperty(store, datasetIRI, rdfType, "${voidNS}DataSet")
+rdf.addObjectProperty(store, datasetIRI, rdfType, "${voidNS}Dataset")
 rdf.addDataProperty(store, datasetIRI, "${dctNS}title", "NanoE-Tox RDF")
+rdf.addDataProperty(store, datasetIRI, "${dctNS}description", "RDF version of the data from Beilstein J. Nanotechnol. 2015, 6, 1788–1804. doi:10.3762/bjnano.6.183.")
+rdf.addDataProperty(store, datasetIRI, "${dctNS}publisher", "Egon Willighagen")
 rdf.addObjectProperty(store, datasetIRI, "${dctNS}license", "https://creativecommons.org/licenses/by/4.0/")
 
 counter = 0;
@@ -140,7 +144,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   // the next material
   enmIRI = "${etoxNS}m$materialCounter"
   rdf.addObjectProperty(store, enmIRI, rdfType, chebi59999)
-
+  rdf.addObjectProperty(store, enmIRI, "${dctNS}source" , datasetIRI)
   rdf.addDataProperty(store, enmIRI, rdfsLabel, name)
 
   // the components (they all have a core)
@@ -199,9 +203,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       if (diameter.contains("-") || diameter.contains("–")) {
         diameter = diameter.replace("–","-")
         if (excelCorrections.containsKey(diameter.trim().toLowerCase())) {
-          // print("Replaced " + diameter + " with ")
+          logMessages += "Replaced " + diameter + " with "
           diameter = excelCorrections.get(diameter.trim().toLowerCase())
-          // println(diameter)
+          logMessages += diameter + "\n"
         }
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
@@ -209,106 +213,109 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
         rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", diameter, "${xsdNS}string")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       } else if (diameter.contains("<")) {
+        logMessages += "Unrecognized diameter value: $diameter \n"
       } else if (diameter.contains(";")) {
+        logMessages += "Unrecognized diameter value: $diameter \n"
       } else {
         rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", diameter, "${xsdNS}double")
         rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "nm")
       }
     }
-  }
-
-  // the zeta potential
-  zp = fields[14].trim()
-  zp = zp.replace("−", "-")
   
-  if (zp && !zp.contains("N/A") &&  zp != "positive" && !zp.contains("(") && !zp.contains("at") &&
-      !zp.contains("-------------------")) {
-    zp = zp.replace("mV","").trim()
-    assayCount++
-    assayIRI = "${enmIRI}_zpAssay" + assayCount
-    measurementGroupIRI = "${enmIRI}_zpMeasurementGroup" + assayCount
-    endpointIRI = "${measurementGroupIRI}_zpEndpoint"
-
-    // the assay
-    // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-    // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Zeta potential")
-    // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
-    rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
-
-    // the measurement group
-    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
-    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
-
-    // the endpoint
-    rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1302")
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
-    rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Zeta potential")
- 
-    zp = zp.replace(",", ".")
-    zp = zp.replace("ca", "").trim()
-    zp = zp.replace("- 51.6", "-51.6").trim()
-    if (zp.substring(1).contains("-")) {
-      if (excelCorrections.containsKey(zp.trim().toLowerCase())) {
-        // print("Replaced " + zp + " with ")
-        zp = excelCorrections.get(zp.trim().toLowerCase())
-        // println(zp)
+    // the zeta potential
+    zp = fields[14].trim()
+    zp = zp.replace("−", "-")
+    
+    if (zp && !zp.contains("N/A") &&  zp != "positive" && !zp.contains("(") && !zp.contains("at") &&
+        !zp.contains("-------------------")) {
+      zp = zp.replace("mV","").trim()
+      assayCount++
+      assayIRI = "${enmIRI}_zpAssay" + assayCount
+      measurementGroupIRI = "${enmIRI}_zpMeasurementGroup" + assayCount
+      endpointIRI = "${measurementGroupIRI}_zpEndpoint"
+  
+      // the assay
+      // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Zeta potential")
+      // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
+  
+      // the measurement group
+      rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+      rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+  
+      // the endpoint
+      rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1302")
+      rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+      rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Zeta potential")
+     
+      zp = zp.replace(",", ".")
+      zp = zp.replace("ca", "").trim()
+      zp = zp.replace("- 51.6", "-51.6").trim()
+      if (zp.substring(1).contains("-")) {
+        if (excelCorrections.containsKey(zp.trim().toLowerCase())) {
+          // print("Replaced " + zp + " with ")
+          zp = excelCorrections.get(zp.trim().toLowerCase())
+          // println(zp)
+        }
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
+      } else if (zp.contains("...")) {
+        zp = zp.replace("...","-")
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
+      } else if (zp.contains("±")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
+      } else if (zp.contains("<")) {
+      } else {
+        rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
       }
-      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
-    } else if (zp.contains("...")) {
-      zp = zp.replace("...","-")
-      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
-    } else if (zp.contains("±")) {
-      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", zp, "${xsdNS}string")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
-    } else if (zp.contains("<")) {
-    } else {
-      rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", zp, "${xsdNS}double")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", "mV")
     }
-  }
 
-  // the surface areas
-  prop = fields[8].trim()
+    // the surface areas
+    prop = fields[8].trim()
+    
+    if (prop && !prop.contains("N/A") && !prop.contains("(") && !prop.contains(">") && !prop.contains("<")) {
+      units = "m2/g"
+      if (prop.contains("nm2")) units = "nm2"
+      prop = prop.replace("m2/g","").replace("nm2","").trim()
+      assayCount++
+      assayIRI = "${enmIRI}_saAssay" + assayCount
+      measurementGroupIRI = "${enmIRI}_saMeasurementGroup" + assayCount
+      endpointIRI = "${measurementGroupIRI}_saEndpoint"
   
-  if (prop && !prop.contains("N/A") && !prop.contains("(") && !prop.contains(">") && !prop.contains("<")) {
-    units = "m2/g"
-    if (prop.contains("nm2")) units = "nm2"
-    prop = prop.replace("m2/g","").replace("nm2","").trim()
-    assayCount++
-    assayIRI = "${enmIRI}_saAssay" + assayCount
-    measurementGroupIRI = "${enmIRI}_saMeasurementGroup" + assayCount
-    endpointIRI = "${measurementGroupIRI}_saEndpoint"
-
-    // the assay
-    // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-    // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Surface Area")
-    // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
-    rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
-
-    // the measurement group
-    rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
-    rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
-
-    // the endpoint
-    rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1235")
-    rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
-    rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Surface Area")
- 
-    prop = prop.replace(",", ".")
-    if (prop.substring(1).contains("-") || prop.contains("–")) {
-      prop = prop.replace("–","-")
-      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
-    } else if (prop.contains("±")) {
-      rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
-    } else if (prop.contains("<")) {
-    } else {
-      rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
-      rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      // the assay
+      // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      // rdf.addDataProperty(store, assayIRI, "${dcNS}title", "Surface Area")
+      // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
+  
+      // the measurement group
+      rdf.addObjectProperty(store, measurementGroupIRI, rdfType, "${baoNS}BAO_0000040")
+      rdf.addObjectProperty(store, measurementGroupIRI, "${oboNS}OBI_0000299", endpointIRI)
+  
+      // the endpoint
+      rdf.addObjectProperty(store, endpointIRI, rdfType, "${npoNS}NPO_1235")
+      rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
+      rdf.addDataProperty(store, endpointIRI, rdfsLabel, "Surface Area")
+   
+      prop = prop.replace(",", ".")
+      if (prop.substring(1).contains("-") || prop.contains("–")) {
+        prop = prop.replace("–","-")
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      } else if (prop.contains("±")) {
+        rdf.addTypedDataProperty(store, endpointIRI, "${oboNS}STATO_0000035", prop, "${xsdNS}string")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      } else if (prop.contains("<")) {
+      } else {
+        rdf.addTypedDataProperty(store, endpointIRI, "${ssoNS}has-value", prop, "${xsdNS}double")
+        rdf.addDataProperty(store, endpointIRI, "${ssoNS}has-unit", units)
+      }
     }
+
   }
 
   // the toxicology
@@ -327,7 +334,8 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     "LC50": "http://www.bioassayontology.org/bao#BAO_0002145",
     "MIC":  "http://www.bioassayontology.org/bao#BAO_0002146",
     "NOEC": "http://purl.enanomapper.org/onto/ENM_0000060",
-    "NOEL": "http://purl.enanomapper.org/onto/ENM_0000056"
+    "NOEL": "http://purl.enanomapper.org/onto/ENM_0000056",
+    "LOEC": "http://purl.enanomapper.org/onto/ENM_8100000"
   ]  
 
   recognizedUnits = [
@@ -382,9 +390,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
                .trim()
     
     if (!recognizedToxicities.containsKey(toxtype)) {
-      // println "Unrecognized TOX endpoint: $toxtype"
+      logMessages += "Unrecognized TOX endpoint: $toxtype \n"
     } else if (prop.contains("/")) {
-      println "Unrecognized TOX unit: $prop"
+      logMessages += "Unrecognized TOX unit: $prop \n"
     } else {
       recogType = recognizedToxicities.get(toxtype)
     
@@ -431,6 +439,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   }
 
 }
+
+if (ui.fileExists(logFilename)) ui.remove(logFilename)
+logfile = ui.newFile(logFilename, logMessages )
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
 output = ui.newFile(outputFilename, rdf.asTurtle(store) )
