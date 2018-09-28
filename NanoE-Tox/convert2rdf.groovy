@@ -26,6 +26,53 @@ excelCorrections = [
   "08-okt": "8-10"
 ]
 
+literature = [
+  "art1": [
+    title: "Systematic and Quantitative Investigation of the Mechanism of Carbon Nanotubes",
+    doi: "10.1021/es301802g"
+  ],
+  "art2": [
+    title: "Toxicity of carbon nanotubes to freshwater aquatic invertebrates",
+    doi: "10.1002/etc.1888"
+  ],
+  "art3": [
+    title: "Uptake, Translocation, and Transmission of Carbon Nanomaterials in Rice Plants",
+    doi: "10.1002/smll.200801556"
+  ],
+  "art4": [
+    title: "Life-cycle effects of single-walled carbon nanotubes (SWNTs) on an estuarine meiobenthic copepod",
+    doi: "10.1021/es060407p"
+  ],
+  "art5": [
+    title: "A Study of Antibacterial Activity of Individually Dispersed Pristine Single-Walled Carbon Nanotube",
+    doi: "10.1021/nn901252r"
+  ],
+  "art6": [
+    title: "Chronic toxicity of double-walled carbon nanotubes to three marine organisms",
+    doi: "10.2217/nnm.10.59"
+  ],
+  "art7": [
+    title: "Are Carbon Nanotube Effects on Green Algae Caused by Shading and Agglomeration",
+    doi: "10.1021/es200506b"
+  ],
+  "art8": [
+    title: "Ecotoxicity of Selected Nano-Materials to Aquatic Organisms",
+    doi: "10.1002/tox.20402"
+  ],
+  "art9": [
+    title: "Profiling of the reactive oxygen species-related ecotoxicity of CuO, ZnO, TiO",
+    doi: "10.1007/s00216-010-3962-7"
+  ],
+  "art10": [
+    title: "Fate and Effects of CeO2 Nanoparticles in Aquatic Ecotoxicity Tests",
+    doi: "10.1021/es9002444"
+  ],
+  "artXX": [
+    title: "XXXX",
+    doi: ""
+  ],
+]
+
 nanomaterials = [
   "Ag" : [
     iri : "http://purl.bioontology.org/ontology/npo#NPO_1384",
@@ -128,6 +175,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
   supplier = fields[1]
   // the diameter
   diameter = fields[5]
+  
+  // literature
+  artTitle = fields[28].trim()
 
   // unique id
   uniqueKey = name + supplier + diameter 
@@ -139,6 +189,20 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
     counter++;
     materialCounter = counter;
     materials.put(uniqueKey, counter);
+  }
+
+  doi = null
+  recognized = false
+  literature.each { article ->
+    mapDOI = article.value.doi
+    mapArticle = article.value.title
+    if (artTitle.contains(mapArticle)) {
+      doi = mapDOI
+      recognized = true
+    } 
+  }
+  if (!recognized) {
+    logMessages += "Unrecognized article title: $artTitle \n"
   }
 
   // the next material
@@ -405,9 +469,13 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       endpointIRI = "${measurementGroupIRI}_${assayTypeCode}Endpoint"
 
       // the assay
-      // rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-      // rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
-      // rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
+      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
+      if (doi != null) {
+        articleIRI = "https://doi.org/${doi}"
+        rdf.addObjectProperty(store, assayIRI, "${dctNS}source", articleIRI)
+      }
       rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
       // the measurement group
@@ -442,6 +510,7 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
 
 if (ui.fileExists(logFilename)) ui.remove(logFilename)
 logfile = ui.newFile(logFilename, logMessages )
+ui.open(logfile)
 
 if (ui.fileExists(outputFilename)) ui.remove(outputFilename)
 output = ui.newFile(outputFilename, rdf.asTurtle(store) )
