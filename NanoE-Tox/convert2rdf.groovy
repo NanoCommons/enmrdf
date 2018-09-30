@@ -4,8 +4,10 @@ logFilename = "/NanoE-Tox/conversion.log"
 logMessages = ""
 
 baoNS = "http://www.bioassayontology.org/bao#"
+citoNS = "http://purl.org/net/cito/"
 dcNS = "http://purl.org/dc/elements/1.1/"
 dctNS = "http://purl.org/dc/terms/"
+doiNS = "https://doi.org/"
 enmNS = "http://purl.enanomapper.org/onto/"
 etoxNS = "http://egonw.github.com/enmrdf/nanoe-tox/"
 npoNS = "http://purl.bioontology.org/ontology/npo#"
@@ -95,6 +97,26 @@ literature = [
     title: "Acute and chronic effects of nano- and non-nano-scale TiO2 and ZnO particles on mobility and reproduction of the freshwater invertebrate Daphnia magna",
     doi: "10.1016/j.chemosphere.2009.06.025"
   ],
+  "art18": [
+    title: "Aggregation and ecotoxicity of CeO2 nanoparticles in synthetic and natural waters with variable pH, organic matter concentration and ionic strength",
+    doi: "10.1016/j.envpol.2010.12.010"
+  ],
+  "art19": [
+    title: "Acute toxicity of cerium oxide, titanium oxide and iron oxide nanoparticles using standardized tests",
+    doi: "10.1016/j.desal.2010.10.052"
+  ],
+  "art20": [
+    title: "Impact of Fe and Ag nanoparticles on seed germination and differences in bioavailability during exposure in aqueous suspension and soil",
+    doi: "10.1002/tox.20610"
+  ],
+  "art21": [
+    title: "Bovine serum albumin mediated decrease in silver nanoparticle phytotoxicity: root elongation and seed germination assay",
+    doi: "10.1080/02772248.2011.617034"
+  ],
+  "art22": [
+    title: "Silver, zinc oxide and titanium dioxide nanoparticle ecotoxicity to bioluminescent Pseudomonas putida in laboratory medium and artificial wastewater",
+    doi: "10.1016/j.envpol.2014.09.002"
+  ],
   "artXX": [
     title: "XXXX",
     doi: ""
@@ -174,6 +196,7 @@ chebi59999 = "http://purl.obolibrary.org/obo/CHEBI_59999"
 
 store = rdf.createInMemoryStore()
 rdf.addPrefix(store, "bao", baoNS)
+rdf.addPrefix(store, "cito", citoNS)
 rdf.addPrefix(store, "dc", dcNS)
 rdf.addPrefix(store, "dct", dctNS)
 rdf.addPrefix(store, "enm", enmNS)
@@ -503,14 +526,9 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       endpointIRI = "${measurementGroupIRI}_${assayTypeCode}Endpoint"
 
       // the assay
-      rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
-      rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
-      rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
-      if (doi != null) {
-        articleIRI = "https://doi.org/${doi}"
-        rdf.addObjectProperty(store, assayIRI, "${dctNS}source", articleIRI)
-        citations++
-      }
+      //rdf.addObjectProperty(store, assayIRI, rdfType, "${baoNS}BAO_0000015")
+      //rdf.addDataProperty(store, assayIRI, "${dcNS}title", toxtype)
+      //rdf.addObjectProperty(store, assayIRI, "${baoNS}BAO_0000209", measurementGroupIRI)
       rdf.addObjectProperty(store, enmIRI, "${oboNS}BFO_0000056", measurementGroupIRI)
 
       // the measurement group
@@ -521,6 +539,11 @@ new File(bioclipse.fullPath("/NanoE-Tox/2190-4286-6-183-S2.csv")).eachLine { lin
       rdf.addObjectProperty(store, endpointIRI, rdfType, recogType)
       rdf.addObjectProperty(store, endpointIRI, "${oboNS}IAO_0000136", enmIRI)
       rdf.addDataProperty(store, endpointIRI, rdfsLabel, toxtype)
+      if (doi != null) {citoNS
+        articleIRI = "${doiNS}$doi"
+        rdf.addObjectProperty(store, endpointIRI, "${citoNS}usesDataFrom", articleIRI)
+        citations++
+      }
  
       prop = prop.replace(",", ".")
                  .replace("...","-")
